@@ -101,6 +101,7 @@ window.onload = function(){
 	datedef.value =today.getFullYear() + '-' + monthFix(today.getMonth()) + '-' + dayfix(today.getDate());
 	checkLocal();
 	document.getElementById('RMuid').placeholder = def_RMuid();
+}
 
 function btclick (){
 	ftoday(getRMuid());
