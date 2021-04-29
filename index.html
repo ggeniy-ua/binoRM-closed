@@ -3,27 +3,39 @@
 	<head>
 		<meta charset = "utf-8">
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+		<link rel="stylesheet" href="style.css">
 		<script src = "script.js"></script>
+		<title>Закрытые задачи</title>
 	</head>
 	
 	<body>
-		<center>
-			<h3>Закрытые задачи</h3>
+		<header>
+			<h1>Закрытые задачи</h1>
+		</header>
+		<article>
 			<form>
-				<input id = "RMuid" type = "text" size = "10" autocomplete = "on">
-				<br/><br/>
-				<button id = "button_today" onclick = "btclick ()">Сегодня</button>
-				<button id = "button_yesterday" onclick = "byclick ()">Вчера</button>
-				<br/><br/>
-				<input id = "closed_date" type = "date">
-				<br/><br/>
-				<button id = "go" onclick = "bgoclick ()">Го!</button>
-				<br/>
-				<a href = "" onclick = "uidreset ()">Сбросить логин</a>
+				<div  class = "formrow">
+					<input id = "RMuid" type = "text" size = "10" autocomplete = "on">
+				</div>
+				<div  class = "formrow">
+					<span>
+						<button  id = "button_today" onclick = "btclick ()">Сегодня</button>
+						<button id = "button_yesterday" onclick = "byclick ()">Вчера</button>
+					</span>
+				</div>
+				<div  class = "formrow">
+					<input id = "closed_date" type = "date">
+				</div>
+				<div  class = "formrow">
+					<button id = "go" onclick = "bgoclick ()">Го!</button>
+				</div>
+				<div  class = "formrow">
+					<a href = "" onclick = "uidreset ()">Сбросить логин</a>
+				</div>
 			</form>
-		</center>
-		<p align="right">
-		По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed">GitHub</a>.
-		</p>
+		</article>
+		<footer>
+		<span class = "footer">По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blanc">GitHub</a>.</span>
+		</footer>
 	</body>
 </html>
