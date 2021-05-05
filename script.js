@@ -1,7 +1,7 @@
 var today = new Date();
 
 function firtsrun(){
-	var fistAskRMuid = prompt ('Введи свой логин:');
+	var fistAskRMuid = prompt ('Введи свой логин в RM:');
 	var ttest = inputCheck(fistAskRMuid);
 	if (ttest==false){
 		return false;
