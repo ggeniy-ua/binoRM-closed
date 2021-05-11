@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+		<link rel="stylesheet" href="style.css">
+		<script src = "script.js"></script>
+		<title>Закрытые задачи</title>
+	</head>
+	
+	<body>
+		<header>
+			<h1>Закрытые задачи</h1>
+		</header>
+		<article>
+			<form>
+				<div  class = "formrow">
+					<input id = "RMuid" type = "text" size = "10" autocomplete = "on">
+				</div>
+				<div  class = "formrow">
+					<span>
+						<button  id = "button_today" onclick = "btclick ()">Сегодня</button>
+						<button id = "button_yesterday" onclick = "byclick ()">Вчера</button>
+					</span>
+				</div>
+				<div  class = "formrow">
+					<input id = "closed_date" type = "date">
+				</div>
+				<div  class = "formrow">
+					<button id = "go" onclick = "bgoclick ()">Го!</button>
+				</div>
+				<div class = "space"></div>
+				<div  class = "formrow">
+					<a href = "" onclick = "uidreset ()">Сбросить логин</a>
+				</div>
+			</form>
+		</article>
+		<div class = "space"></div>
+		<footer>
+		<span class = "footer">По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">GitHub</a>.</span>
+		</footer>
+	</body>
+</html>
