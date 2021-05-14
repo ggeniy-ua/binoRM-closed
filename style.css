@@ -68,7 +68,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-.bg {
-	background-image: url(https://2ip.ru/member_photo/242439.gif);
-	background-size: cover;
+#reset {
+	cursor: pointer;
+	color: gray;
 }

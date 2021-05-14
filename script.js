@@ -1,3 +1,14 @@
+window.onload = function(){
+	var datedef = document.getElementById('closed_date');
+	datedef.value =today.getFullYear() + '-' + monthFix(today.getMonth()) + '-' + dayfix(today.getDate());
+	checkLocal();
+	document.getElementById('RMuid').placeholder = def_RMuid();
+	document.getElementById('button_today').addEventListener("click", btclick);
+	document.getElementById('button_yesterday').addEventListener("click", byclick);
+	document.getElementById('go').addEventListener("click", bgoclick);
+	document.getElementById('reset').addEventListener("click", uidreset);
+}
+
 var today = new Date();
 
 function firtsrun(){
@@ -92,14 +103,6 @@ function uidreset(){
 	if (confirm ('Сбросить настройку логина?')){
 		firtsrun();
 	}
-	document.getElementById('RMuid').placeholder = def_RMuid();
-}
-
-
-window.onload = function(){
-	var datedef = document.getElementById('closed_date');
-	datedef.value =today.getFullYear() + '-' + monthFix(today.getMonth()) + '-' + dayfix(today.getDate());
-	checkLocal();
 	document.getElementById('RMuid').placeholder = def_RMuid();
 }
 
