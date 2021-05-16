@@ -41,7 +41,7 @@ function getRMuid (){
 }
 
 function inputCheck(testStting){
-	var re = /^[A-Z]{2,4}$/;
+	var re = /^[A-Z0-9]{2,4}$/;
 	var testStrUp = testStting.toUpperCase();
 	if (re.test(testStrUp)){
 		return testStrUp;
