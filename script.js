@@ -13,6 +13,9 @@ var today = new Date();
 
 function firtsrun(){
 	var fistAskRMuid = prompt ('Введи свой логин в RM:');
+	if (fistAskRMuid == null){
+		return false;
+		}
 	var ttest = inputCheck(fistAskRMuid);
 	if (ttest==false){
 		return false;
