@@ -13,9 +13,8 @@
 			<h1>Закрытые задачи</h1>
 		</header>
 		<article>
-			<form>
 				<div  class = "formrow">
-					<input id = "RMuid" type = "text" size = "10" autocomplete = "on">
+					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" maxlength="4">
 				</div>
 				<div  class = "formrow">
 					<span>
@@ -31,9 +30,15 @@
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">
+					С <input id="from_date" type="date"> по <input id="to_date" type="date">
+				</div>
+				<div  class = "formrow">
+					<button id="godiap">Го!</button>
+				</div>
+				<div class = "space"></div>
+				<div  class = "formrow">
 					<span id = "reset">Сбросить логин</span>
 				</div>
-			</form>
 		</article>
 		<div class = "space"></div>
 		<footer>

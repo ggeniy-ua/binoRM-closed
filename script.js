@@ -1,124 +1,126 @@
+var today = new Date();
+var RMuidField, closedDate, fromDate, toDate;
+
 window.onload = function(){
-	var datedef = document.getElementById('closed_date');
-	datedef.value =today.getFullYear() + '-' + monthFix(today.getMonth()) + '-' + dayfix(today.getDate());
+	closedDate = document.getElementById('closed_date');
+	fromDate = document.getElementById('from_date');
+	toDate = document.getElementById('to_date');
+	RMuidField = document.getElementById('RMuid');	
+	RMuidField.addEventListener('input', change);
+	document.getElementById('button_today').addEventListener('click', todayClick);
+	document.getElementById('button_yesterday').addEventListener('click', yesterdayClick);
+	document.getElementById('go').addEventListener('click', todayClick);
+	document.getElementById('godiap').addEventListener('click', buttonGoDiapClick);
+	document.getElementById('reset').addEventListener('click', uidresetClick);
 	checkLocal();
-	document.getElementById('RMuid').placeholder = def_RMuid();
-	document.getElementById('button_today').addEventListener("click", btclick);
-	document.getElementById('button_yesterday').addEventListener("click", byclick);
-	document.getElementById('go').addEventListener("click", bgoclick);
-	document.getElementById('reset').addEventListener("click", uidreset);
+	RMuidField.placeholder = getLocalRMuid();
+	closedDate.valueAsDate = today;
+	fromDate.valueAsDate = monday();
+	toDate.valueAsDate = today;
+	
 }
 
-var today = new Date();
+function checkLocal(){
+	while (!localStorage.localRMuid){
+			firtsRun();
+	}
+}
 
-function firtsrun(){
-	var fistAskRMuid = prompt ('Введи свой логин в RM:');
-	if (fistAskRMuid == null){
+function firtsRun(){
+	let askRMuid = prompt ('Введи свой логин в RM:');
+	if (askRMuid == null){
 		return false;
 		}
-	var ttest = inputCheck(fistAskRMuid);
-	if (ttest==false){
+	let loginInput = inputCheck(askRMuid);
+	if (loginInput == false){
 		return false;
 	}else{
-		var SecondAskRMuid = confirm ('Записать "' + ttest + '"?');
-		if (SecondAskRMuid){
-			localStorage.LRMuid = ttest;
+		if (confirm ('Записать "' + loginInput + '"?')){
+			localStorage.localRMuid = loginInput;
 		}else{
 			return false;
 		}
 	}
 }
 
-
-function getRMuid (){
-	var RMuid = document.getElementById("RMuid").value;
-	var ttest = inputCheck(RMuid);
-	if (ttest==false){
-		return def_RMuid();
-	}else{
-		return ttest;
-	}
-}
-
 function inputCheck(testStting){
-	var re = /^[A-Z0-9]{2,4}$/;
-	var testStrUp = testStting.toUpperCase();
-	if (re.test(testStrUp)){
-		return testStrUp;
+	let re = /^[A-Z0-9]{2,4}$/;
+	let testStrUpper = testStting.toUpperCase();
+	if (re.test(testStrUpper)){
+		return testStrUpper;
 	}else{
 		return false;
 	}
 }
 
-
-function checkLocal(){
-	while (!localStorage.LRMuid){
-			firtsrun();
-	}
+function getLocalRMuid(){
+	return localStorage.localRMuid;
 }
 
-
-function def_RMuid(){
-	return localStorage.LRMuid;
+function change() {
+	let pattern = /[^a-z0-9]/gi;
+	str = RMuidField.value.toUpperCase();
+	RMuidField.value = str.replace(pattern, '');
 }
 
-function ftoday(uid){
-	var date = today.getFullYear() + '-' + monthFix(today.getMonth()) + '-' + dayfix(today.getDate());
-	letsgo (uid, date); 							
-}
-					
-function fyesterday(uid){
-	var date = new Date();
-	date.setDate(date.getDate() - 1);	
-	var yesterday_day = date.getDate();
-	var yesterday_month = date.getMonth();
-	var yesterday_year = date.getFullYear();
-	var date = yesterday_year + '-' + monthFix(yesterday_month) + '-' + dayfix(yesterday_day);
-	letsgo (uid, date);
-}
-					
-					
-						
-function monthFix (month){
-	var monthnum = month + 1;
-	if (monthnum < 10){
-		return '0' + monthnum;
+function getRMuid (){
+	let RMuidFromInput = inputCheck(RMuidField.value);
+	if (RMuidFromInput==false){
+		return getLocalRMuid();
 	}else{
-		return monthnum;
+		return RMuidFromInput;
 	}
 }
 
-function dayfix (day){
-
-	if (day < 10){
-		return '0' + day;
-	}else{
-		return day;
-	}
-}	
-
-function letsgo (uid, date){
-		var url = 'https://work.binotel.com/issues?c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]==&op[status_id]=c&per_page=200&set_filter=1&utf8=✓&v[cf_77][]=' + uid + '&v[closed_on][]=' + date;
-	window.open(url, "_blank");
+function todayClick (){
+	showMe(getRMuid(), ftoday());
 }
 
-function uidreset(){
+function ftoday(){
+	return today.toISOString().substr(0,10);
+}
+
+function yesterdayClick (){
+	showMe(getRMuid(), fyesterday());
+}
+
+function fyesterday(){
+	let date = new Date();
+	date.setDate(today.getDate() - 1);
+	return date.toISOString().substr(0,10);
+}
+
+function uidresetClick(){
 	if (confirm ('Сбросить настройку логина?')){
-		firtsrun();
+		firtsRun();
 	}
-	document.getElementById('RMuid').placeholder = def_RMuid();
+	RMuidField.placeholder = getLocalRMuid();
 }
 
-function btclick (){
-	ftoday(getRMuid());
+function buttonGoDiapClick (){
+	showMeDiap(getRMuid(), from_date.value, to_date.value);
 }
 
-function byclick (){
-	fyesterday(getRMuid());
+function monday(){
+	let date = new Date();
+	let thisDay = date.getDay();
+	if (thisDay == 0){
+		date.setDate(today.getDate - 6);
+		return date;
+	} else if (thisDay == 1){
+		return date;
+	} else {
+		date.setDate(today.getDate() - thisDay + 1);
+		return date;
+	}
 }
 
-function bgoclick (){
-	var RMuid = getRMuid();
-	var cdate = document.getElementById("closed_date").value;
-	letsgo(RMuid, cdate);
+function showMe (uid, date){
+	let url = 'https://work.binotel.com/issues?c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]==&op[status_id]=c&per_page=200&set_filter=1&utf8=✓&v[cf_77][]=' + uid + '&v[closed_on][]=' + date;
+	window.open(url, '_blank');
+}
+
+function showMeDiap (uid, from, to){
+	let url = 'https://work.binotel.com/issues?c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]=><&op[status_id]=c&per_page=200&set_filter=1&utf8=✓&v[cf_77][]=' + 'uid' + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
+	window.open(url, '_blank');
 }
