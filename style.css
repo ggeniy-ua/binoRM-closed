@@ -13,9 +13,9 @@ body {
 
 header {
 	flex: 0;
-    text-align: center;
-    margin: 5px;
-    margin-bottom: 10px;
+	text-align: center;
+	margin: 5px;
+	margin-bottom: 10px;
 }
 
 h1 {
@@ -33,25 +33,17 @@ article {
 	height: 15px;
 }
 
-input {
-	text-align: center;
-}
-
 .formrow {
 	text-align: center;
 	display: block;
-	margin: 5px;
 }
 
 footer {
-	flex: 0;
-	align-self: flex-end;
-    display: block;
-    text-align: right;
-}
-
-.footer {
-	bottom: 0;
+	display: flex;
+	flex-direction: row;
+	align-content: flex-end;
+	justify-content: space-between;
+	align-items: flex-end;
 }
 
 a:link { 
@@ -71,4 +63,68 @@ a:hover {
 #reset {
 	cursor: pointer;
 	color: gray;
+}
+
+.button {
+	display: inline-flex;
+	background: #b7b7b7;
+	padding: 3px;
+	cursor: pointer;
+	box-shadow: 1px 1px 0px 0px #000;
+	user-select: none;
+}
+.button:hover {
+	opacity: 0.9;
+}
+.button:active {
+	box-shadow: inset 1px 1px 0px 0px #000;
+}
+
+.ui-element {
+	border-radius: 7px;
+	border-style: solid;
+	border-width: thin;
+	text-align: center;
+	margin: 2px;
+}
+
+.ui-element:focus-visible {
+	outline: none;
+}
+
+
+
+.inout-container {
+	display: flex;
+	justify-content: center;
+}
+
+.column-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.inputs-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.buttons-container {
+	
+}
+
+.textarea {
+	display: flex;
+	align-items: flex-start;
+	padding: 5px;
+	width: 60ch;
+	overflow: hidden;
+	font-family: monospace;
+	flex-wrap: wrap;
+	flex-direction: column;border-radius: 7px;
+	border-style: solid;
+	border-width: thin;
+	margin: 2px;
 }

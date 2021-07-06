@@ -14,35 +14,76 @@
 		</header>
 		<article>
 				<div  class = "formrow">
-					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" maxlength="4">
+					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" maxlength="4" class = "ui-element">
 				</div>
 				<div  class = "formrow">
 					<span>
-						<button  id = "button_today">Сегодня</button>
-						<button id = "button_yesterday">Вчера</button>
+						<div  id = "button_today" class = "button ui-element">Сегодня</div>
+						<div id = "button_yesterday" class = "button ui-element">Вчера</div>
+						<div id = "button_alltime" class = "button ui-element">От начала времён</div>
 					</span>
 				</div>
 				<div  class = "formrow">
-					<input id = "closed_date" type = "date">
+					<input id = "closed_date" type = "date" class = "ui-element">
 				</div>
 				<div  class = "formrow">
-					<button id = "go">Го!</button>
-				</div>
-				<div class = "space"></div>
-				<div  class = "formrow">
-					С <input id="from_date" type="date"> по <input id="to_date" type="date">
-				</div>
-				<div  class = "formrow">
-					<button id="godiap">Го!</button>
+					<div id = "go" class = "button ui-element">Го!</div>
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">
-					<span id = "reset">Сбросить логин</span>
+					С <input id="from_date" type="date" class = "ui-element"> по <input id="to_date" type="date" class = "ui-element">
+				</div>
+				<div  class = "formrow">
+					<div id="godiap" class = "button ui-element">Го!</div>
+				</div>
+				<div class = "space"></div>
+				<div  class = "inout-container">
+					<div class = "column-container">
+						<div class = "inputs-container">
+							<input id = "panelid" class = "ui-element" type = "text" maxlength="10" size = "10" autocomplete = "off" placeholder = "PanelID">
+							<input id = "number" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "number">
+							<input id = "defaultuser" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "defaultuser">
+							<input id = "fromuser" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "fromuser">
+							<input id = "secret" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "secret">
+							<input id = "host" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "host">
+							<input id = "fromdomain" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "fromdomain">
+						</div>
+						<div class = "buttons-container">
+							<div  id = "addnumber" class = "button ui-element">Копировать</div>
+						</div>
+					</div>
+					<div id = "out" class = "textarea">
+						<span>
+							<span>Просьба добавить для: https://panel.binotel.com/?module=pbxNumbersEnhanced&action=edit&companyID=</span><span id = "panelidOut"></span>
+						</span><br/>
+						<span>
+							<span>Номер </span><span id = "numberOut"></span>
+						</span><br/>
+						<span>
+							<span>defaultuser = </span><span id = "defaultuserOut"></span>
+						</span>
+						<span>
+							<span>fromuser = </span><span id = "fromuserOut"></span>
+						</span>
+						<span>
+							<span>secret = </span><span id = "secretOut"></span>
+						</span>
+						<span>
+							<span>host = </span><span id = "hostOut"></span>
+						</span>
+						<span>
+							<span>fromdomain = </span><span id = "fromdomainOut"></span>
+						</span><br/>
+						<span>
+							<span>register => </span><span id = "fromuserReg"></span><span>:</span><span id = "secretReg"></span><span>@</span><span id = "fromdomainReg"></span><span>/</span><span id = "numberReg"></span>
+						</span>
+					</div>
 				</div>
 		</article>
 		<div class = "space"></div>
 		<footer>
-		<span class = "footer">По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">GitHub</a>.</span>
+			<span id = "reset" class = "l-footer">Сбросить логин</span>
+			<span class = "r-footer">По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">GitHub</a>.</span>
 		</footer>
 	</body>
 </html>
