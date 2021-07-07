@@ -179,6 +179,7 @@ function showMeAllTime (uid){
 function input() {
 	let re = /[\s]/g;
 	let temp = this.value = this.value.replace(re, '');
+	check(this);
 	switch (this.id) {
 		
 		case 'panelid':
@@ -213,6 +214,14 @@ function input() {
 	}
 }
 
+function check(elem) {
+	let re = /[а-яА-ЯіІ:@\/]/g;
+	if (re.test(elem.value)) {
+		elem.classList.add('err');
+	} else {
+		elem.classList.remove('err');
+	}
+}
 
 function copy() {
 	navigator.clipboard.writeText(out.innerText);

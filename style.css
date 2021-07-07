@@ -128,3 +128,9 @@ a:hover {
 	border-width: thin;
 	margin: 2px;
 }
+
+.err {
+	border: thin solid red;
+	border-radius: 5px;
+	padding: 2px;
+}
