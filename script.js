@@ -180,6 +180,9 @@ function input() {
 	let re = /[\s]/g;
 	let temp = this.value = this.value.replace(re, '');
 	check(this);
+	if (this.value == '') {
+		this.placeholder = this.id;
+	}
 	switch (this.id) {
 		
 		case 'panelid':
@@ -192,7 +195,8 @@ function input() {
 		
 		case 'defaultuser':
 		defaultuserOut.textContent = temp;
-		if (fromuser.value == '') { fromuser.value = fromuserOut.textContent = fromuserReg.textContent = temp; }
+		if (fromuser.value == '') { fromuser.placeholder = fromuserOut.textContent = fromuserReg.textContent = temp; }
+		if (fromuser.placeholder == '') { fromuser.placeholder = 'fromuser'; }
 		break;
 		
 		case 'fromuser':
@@ -205,7 +209,8 @@ function input() {
 		
 		case 'host':
 		hostOut.textContent = temp;
-		if (fromdomain.value == '') { fromdomain.value = fromdomainOut.textContent = fromdomainReg.textContent = temp; }
+		if (fromdomain.value == '') { fromdomain.placeholder = fromdomainOut.textContent = fromdomainReg.textContent = temp; }
+		if (fromdomain.placeholder == '') { fromdomain.placeholder = 'fromuser'; }
 		break;
 		
 		case 'fromdomain':
