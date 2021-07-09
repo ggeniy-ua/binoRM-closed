@@ -1,0 +1,13 @@
+.version {
+	display: flex;
+	flex-direction: column;
+	margin: 5px;
+}
+
+.number {
+	font-weight: bold;
+}
+
+.description {
+	text-indent: 10px;
+}

@@ -1,5 +1,4 @@
 var today = new Date();
-var RMuidField, closedDate, fromDate, toDate;
 
 window.onload = function(){
 	// old
@@ -56,6 +55,12 @@ window.onload = function(){
 	
 	addnumber.addEventListener('click', copy);
 	
+	//changelog
+	modal = document.getElementById('modal');
+	btnVer = document.getElementById('ver');
+	btnCloseModal = document.getElementById('close');
+	btnVer.addEventListener('click', showModal);
+	btnCloseModal.addEventListener('click', closeModal);
 }
 
 
@@ -230,4 +235,20 @@ function check(elem) {
 
 function copy() {
 	navigator.clipboard.writeText(out.innerText);
+}
+
+function showModal() {
+	modal.style.display = "block";
+	window.addEventListener('click', outerCloseModal);
+}
+
+function closeModal() {
+	modal.style.display = "none";
+	window.removeEventListener('click', outerCloseModal);
+}
+
+function outerCloseModal() {
+	if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }

@@ -133,3 +133,46 @@ a:hover {
 	border-radius: 5px;
 	padding: 2px;
 }
+
+#ver {
+	font-size: 90%;
+    font-family: monospace;
+	cursor: pointer;
+	user-select: none;
+}
+
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 10vh;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-ver {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #ffffff80;
+    width: 80%;
+}
+
+#close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+#versions {
+	width: 100%;
+}
