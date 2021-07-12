@@ -35,8 +35,10 @@ h1 {
 }
 
 .formrow {
-	text-align: center;
-	display: block;
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 footer {
@@ -175,4 +177,8 @@ a:hover {
 
 #versions {
 	width: 100%;
+}
+
+#filters {
+	width: 15ch;
 }

@@ -3,8 +3,8 @@
 	<head>
 		<meta charset = "utf-8">
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-		<link rel="stylesheet" href="style.css?ver=2.5.0">
-		<script src = "script.js?ver=2.5.0"></script>
+		<link rel="stylesheet" href="style.css?ver=2.6.0">
+		<script src = "script.js?ver=2.6.0"></script>
 		<title>Закрытые задачи</title>
 	</head>
 	<body>
@@ -23,18 +23,29 @@
 						<div id = "button_alltime" class = "button ui-element">От начала времён</div>
 					</span>
 				</div>
+				<div class = "space"></div>
 				<div  class = "formrow">
 					<input id = "closed_date" type = "date" class = "ui-element">
+					<div id = "go" class = "button ui-element">Свои задачи</div>
 				</div>
 				<div  class = "formrow">
-					<div id = "go" class = "button ui-element">Го!</div>
+					<select id = "filters" class = "ui-element">
+						<option>Тикеты</option>
+						<option>Аварии</option>
+						<option>Интеграции</option>
+						<option>ТЗ</option>
+						<option>Удалёнка</option>
+						<option>Аудио</option>
+					</select>
+					<div id = "gofilter" class = "button ui-element">Задачи фильтра</div>
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">
 					С <input id="from_date" type="date" class = "ui-element"> по <input id="to_date" type="date" class = "ui-element">
 				</div>
 				<div  class = "formrow">
-					<div id="godiap" class = "button ui-element">Го!</div>
+					<div id="godiap" class = "button ui-element">Свои задачи</div>
+					<!-- <div id = "gofilterdiap" class = "button ui-element">Задачи фильтра</div> -->
 				</div>
 				<div class = "space"></div>
 				<div  class = "inout-container">
@@ -83,13 +94,13 @@
 		</div>
 		<footer>
 			<span id = "reset" class = "l-footer">Сбросить логин</span>
-			<span id = "ver">ver 2.5.1</span>
+			<span id = "ver">ver 2.6.0</span>
 			<span class = "r-footer">По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">GitHub</a>.</span>
 		</footer>
-		<div id="modal">
-			<div class ="modal-ver ui-element">
-				<span id ="close">×</span>
-				<iframe id = "versions" class ="ui-element" src = "changelog.html"></iframe>
+		<div id = "modal">
+			<div class = "modal-ver ui-element">
+				<span id = "close">×</span>
+				<iframe id = "versions" class = "ui-element" src = "changelog.html"></iframe>
 			</div>
 		</div>
 	</body>
