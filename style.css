@@ -95,7 +95,7 @@ a:hover {
 
 
 
-.inout-container {
+.form-container {
 	display: flex;
 	justify-content: center;
 }
@@ -124,10 +124,17 @@ a:hover {
 	overflow: hidden;
 	font-family: monospace;
 	flex-wrap: wrap;
-	flex-direction: column;border-radius: 7px;
+	flex-direction: column;
+	border-radius: 7px;
 	border-style: solid;
 	border-width: thin;
+	border-color: #767676;
 	margin: 2px;
+	text-align: left;
+}
+
+textarea {
+	resize: none;
 }
 
 .err {

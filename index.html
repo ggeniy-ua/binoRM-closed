@@ -3,8 +3,8 @@
 	<head>
 		<meta charset = "utf-8">
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-		<link rel="stylesheet" href="style.css?ver=2.6.0">
-		<script src = "script.js?ver=2.6.0"></script>
+		<link rel="stylesheet" href="style.css?ver=2.7.0">
+		<script src = "script.js?ver=2.7.0"></script>
 		<title>Закрытые задачи</title>
 	</head>
 	<body>
@@ -48,7 +48,7 @@
 					<!-- <div id = "gofilterdiap" class = "button ui-element">Задачи фильтра</div> -->
 				</div>
 				<div class = "space"></div>
-				<div  class = "inout-container">
+				<div  class = "form-container">
 					<div class = "column-container">
 						<div class = "inputs-container">
 							<input id = "panelid" class = "ui-element" type = "text" maxlength="10" size = "10" autocomplete = "off" placeholder = "PanelID">
@@ -90,11 +90,27 @@
 						</span>
 					</div>
 				</div>
+				<div class = "space"></div>
+				<span class = "formrow">Чёрно-белые списки</span>
+				<div  class = "form-container">
+					<div class = "column-container">
+						<div class = "inputs-container">
+							<input id = "idScenario" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id сценария">
+							<input id = "idt" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id t">
+							<textarea id = "phones" class = "ui-element" placeholder = "телефоны (каждый с новой строки)"></textarea>
+						</div>
+						<div class = "buttons-container">
+							<div  id = "generateBWlist" class = "button ui-element">Сгенерировать</div>
+							<div  id = "copyBWlist" class = "button ui-element">Копировать</div>
+						</div>
+					</div>
+					<textarea id = "outBWlist" class = "textarea ui-element" disabled></textarea>
+				</div>
 			</article>
 		</div>
 		<footer>
 			<span id = "reset" class = "l-footer">Сбросить логин</span>
-			<span id = "ver">ver 2.6.0</span>
+			<span id = "ver">ver 2.7.0</span>
 			<span class = "r-footer">По всем вопросам: <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">GitHub</a>.</span>
 		</footer>
 		<div id = "modal">

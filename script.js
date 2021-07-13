@@ -64,6 +64,15 @@ window.onload = function(){
 	btnCloseModal = document.getElementById('close');
 	btnVer.addEventListener('click', showModal);
 	btnCloseModal.addEventListener('click', closeModal);
+	
+	//BW
+	idScenario = document.getElementById('idScenario');
+	idt = document.getElementById('idt');
+	phones = document.getElementById('phones');
+	outBWlist = document.getElementById('outBWlist');
+	
+	document.getElementById('generateBWlist').addEventListener('click', generateBW);
+	document.getElementById('copyBWlist').addEventListener('click', copyBW);
 }
 
 
@@ -296,4 +305,22 @@ function outerCloseModal() {
 	if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+
+function generateBW() {
+	outBWlist.value = '';
+	let arr = phones.value.split('\n');
+	arr.forEach(element => outBWlist.value += colorListEntity(idScenario.value, idt.value, element));
+}
+
+function colorListEntity(scid, tid, phnum) {
+	let result = `exten => _${phnum},1,Set(ivrRouteID=${scid})
+exten => _${phnum},n,Return
+exten => t,1,Set(ivrRouteID=${tid})
+`;
+	return result;
+}
+
+function copyBW() {
+	navigator.clipboard.writeText(outBWlist.value);
 }
