@@ -1,4 +1,5 @@
 var today = new Date();
+var modal;
 
 window.onload = function(){
 	// old
@@ -59,11 +60,8 @@ window.onload = function(){
 	addnumber.addEventListener('click', copy);
 	
 	//changelog
-	modal = document.getElementById('modal');
 	btnVer = document.getElementById('ver');
-	btnCloseModal = document.getElementById('close');
 	btnVer.addEventListener('click', showModal);
-	btnCloseModal.addEventListener('click', closeModal);
 	
 	//BW
 	idScenario = document.getElementById('idScenario');
@@ -292,20 +290,34 @@ function copy() {
 }
 
 function showModal() {
-	modal.style.display = "block";
-	window.addEventListener('click', outerCloseModal);
+	if (modal) {
+		modal.classList.toggle('hidden');
+		window.addEventListener('click', outerCloseModal);
+	} else {
+		modal = document.createElement('div');
+		modal.id = 'modal';
+		modal.classList.add('hidden');
+		modal.innerHTML = '<div class = "modal-ver"><span id = "close">×</span><iframe id = "versions" class = "ui-element" src = "changelog.html"></iframe></div>';
+		document.getElementsByTagName('body')[0].append(modal);
+		btnCloseModal = document.getElementById('close');
+		btnCloseModal.addEventListener('click', closeModal);
+		showModal();
+	}
 }
 
 function closeModal() {
-	modal.style.display = "none";
+	modal.classList.toggle('hidden');
 	window.removeEventListener('click', outerCloseModal);
 }
 
 function outerCloseModal() {
 	if (event.target == modal) {
-        modal.style.display = "none";
+        modal.classList.toggle('hidden');
     }
 }
+
+
+
 
 function generateBW() {
 	outBWlist.value = '';
