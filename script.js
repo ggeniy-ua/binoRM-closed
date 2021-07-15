@@ -320,7 +320,7 @@ function outerCloseModal() {
 
 
 function generateBW() {
-	outBWlist.value = '';
+	outBWlist.value = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
 	let arr = phones.value.split('\n');
 	arr.forEach(element => outBWlist.value += colorListEntity(idScenario.value, element));
 	outBWlist.value += `exten => t,1,Set(ivrRouteID=${idt.value})`;
