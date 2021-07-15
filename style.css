@@ -197,3 +197,10 @@ textarea {
 #filters {
 	width: 15ch;
 }
+
+#verHeader {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

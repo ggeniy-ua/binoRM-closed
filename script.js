@@ -1,5 +1,5 @@
 var today = new Date();
-var modal;
+var modal, currentVersion;
 
 window.onload = function(){
 	// old
@@ -14,7 +14,7 @@ window.onload = function(){
 	document.getElementById('go').addEventListener('click', goClick);
 	document.getElementById('godiap').addEventListener('click', buttonGoDiapClick);
 	document.getElementById('reset').addEventListener('click', uidresetClick);
-	checkLocal();
+	
 	RMuidField.placeholder = getLocalRMuid();
 	closedDate.valueAsDate = today;
 	fromDate.valueAsDate = monday();
@@ -71,6 +71,10 @@ window.onload = function(){
 	
 	document.getElementById('generateBWlist').addEventListener('click', generateBW);
 	document.getElementById('copyBWlist').addEventListener('click', copyBW);
+	
+	currentVersion = btnVer.innerText.split(' ')[1];
+		
+	checkLocal();
 }
 
 
@@ -79,6 +83,10 @@ window.onload = function(){
 function checkLocal(){
 	while (!localStorage.localRMuid){
 			firtsRun();
+	}
+	if (!versionCheck()) {
+		localStorage.lastVer = currentVersion;
+		showModal();
 	}
 }
 
@@ -228,10 +236,6 @@ function showMeFilter (id, date) {
 	window.open(url, '_blank');
 }
 
-/* function showMeFilterDiap (id, from, to) {
-	
-} */
-
 // add number
 function input() {
 	let re = /[\s]/g;
@@ -297,7 +301,7 @@ function showModal() {
 		modal = document.createElement('div');
 		modal.id = 'modal';
 		modal.classList.add('hidden');
-		modal.innerHTML = '<div class = "modal-ver"><span id = "close">×</span><iframe id = "versions" class = "ui-element" src = "changelog.html"></iframe></div>';
+		modal.innerHTML = '<div class="modal-ver"><div id="verHeader"><h1>История изменений:</h1><span id="close">×</span></div><iframe id="versions" class="ui-element" src="changelog.html"></iframe></div>';
 		document.getElementsByTagName('body')[0].append(modal);
 		btnCloseModal = document.getElementById('close');
 		btnCloseModal.addEventListener('click', closeModal);
@@ -335,4 +339,23 @@ exten => _${phnum},n,Return
 
 function copyBW() {
 	navigator.clipboard.writeText(outBWlist.value);
+}
+
+function versionCheck() {
+	if (!localStorage.lastVer) {
+		return false;
+	}
+	
+	let stored = localStorage.lastVer.split('.');
+	let current = currentVersion.split('.');
+	
+	if (parseInt(current[0], 10) > parseInt(stored[0], 10)) {
+		return false;
+	} else {
+		if (parseInt(current[1], 10) > parseInt(stored[1], 10)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
