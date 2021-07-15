@@ -322,13 +322,13 @@ function outerCloseModal() {
 function generateBW() {
 	outBWlist.value = '';
 	let arr = phones.value.split('\n');
-	arr.forEach(element => outBWlist.value += colorListEntity(idScenario.value, idt.value, element));
+	arr.forEach(element => outBWlist.value += colorListEntity(idScenario.value, element));
+	outBWlist.value += `exten => t,1,Set(ivrRouteID=${idt.value})`;
 }
 
-function colorListEntity(scid, tid, phnum) {
+function colorListEntity(scid, phnum) {
 	let result = `exten => _${phnum},1,Set(ivrRouteID=${scid})
 exten => _${phnum},n,Return
-exten => t,1,Set(ivrRouteID=${tid})
 `;
 	return result;
 }
