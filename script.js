@@ -172,7 +172,7 @@ function monday(){
 	let date = new Date();
 	let thisDay = date.getDay();
 	if (thisDay == 0){
-		date.setDate(today.getDate - 6);
+		date.setDate(today.getDate() - 6);
 		return date;
 	} else if (thisDay == 1){
 		return date;
