@@ -1,5 +1,5 @@
 var today = new Date();
-var modal, currentVersion;
+var modal;
 
 window.onload = function(){
 	// old
@@ -68,13 +68,17 @@ window.onload = function(){
 	idt = document.getElementById('idt');
 	phones = document.getElementById('phones');
 	outBWlist = document.getElementById('outBWlist');
+	idScenario.addEventListener('input', replacingBW);
+	idt.addEventListener('input', replacingBW);
 	
 	document.getElementById('generateBWlist').addEventListener('click', generateBW);
 	document.getElementById('copyBWlist').addEventListener('click', copyBW);
 	
-	currentVersion = btnVer.innerText.split(' ')[1];
+	btnVer.innerText = 'ver ' + currentVersion;
 		
 	checkLocal();
+	window.addEventListener('resize', cons);
+	cons();
 }
 
 // old
@@ -83,7 +87,7 @@ function checkLocal(){
 	while (!localStorage.localRMuid){
 			firtsRun();
 	}
-	if (!versionCheck()) {
+	if (!versionCheck()){
 		localStorage.lastVer = currentVersion;
 		showModal();
 	}
@@ -94,23 +98,9 @@ function firtsRun(){
 	if (askRMuid == null){
 		return false;
 		}
-	let loginInput = inputCheck(askRMuid);
-	if (loginInput == false){
-		return false;
-	}else{
-		if (confirm ('Записать "' + loginInput + '"?')){
-			localStorage.localRMuid = loginInput;
-		}else{
-			return false;
-		}
-	}
-}
-
-function inputCheck(testStting){
-	let re = /^[A-Z0-9]{2,4}$/;
-	let testStrUpper = testStting.toUpperCase();
-	if (re.test(testStrUpper)){
-		return testStrUpper;
+	let loginInput = inputReplace(askRMuid, 'rm_uid');
+	if (confirm ('Записать "' + loginInput + '"?')){
+		localStorage.localRMuid = loginInput;
 	}else{
 		return false;
 	}
@@ -120,15 +110,13 @@ function getLocalRMuid(){
 	return localStorage.localRMuid;
 }
 
-function change() {
-	let pattern = /[^a-z0-9]/gi;
-	str = RMuidField.value.toUpperCase();
-	RMuidField.value = str.replace(pattern, '');
+function change(){
+	RMuidField.value = inputReplace(RMuidField.value, 'rm_uid');
 }
 
 function getRMuid (){
-	let RMuidFromInput = inputCheck(RMuidField.value);
-	if (RMuidFromInput==false){
+	let RMuidFromInput = RMuidField.value;
+	if (RMuidFromInput==''){
 		return getLocalRMuid();
 	}else{
 		return RMuidFromInput;
@@ -197,17 +185,17 @@ function showMeAllTime (uid){
 	window.open(url, '_blank');
 }
 
-function goClick() {
+function goClick(){
 	showMe(getRMuid(), closedDate.value);
 }
 
-function goFilterClick() {
+function goFilterClick(){
 	showMeFilter (filters.selectedIndex, closedDate.value);
 }
 
-function showMeFilter (id, date) {
+function showMeFilter (id, date){
 	let url = '';
-	switch (id) {
+	switch (id){
 		case 0:
 		url = 'https://work.binotel.com/issues?c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&per_page=500&set_filter=1&utf8=✓&v[cf_79][]=38. ОТП Изменение cценария обработки Входящих звонков | Исходящих звонков&v[cf_79][]=5. ОТП Поддержка клиента &v[closed_on][]=' + date;
 		break;
@@ -236,14 +224,13 @@ function showMeFilter (id, date) {
 }
 
 // add number
-function input() {
-	let re = /[\s]/g;
-	let temp = this.value = this.value.replace(re, '');
+function input(){
+	let temp = this.value = inputReplace(this.value, 'no_spaces');
 	check(this);
-	if (this.value == '') {
+	if (this.value == ''){
 		this.placeholder = this.id;
 	}
-	switch (this.id) {
+	switch (this.id){
 		
 		case 'panelid':
 		panelidOut.textContent = temp;
@@ -255,8 +242,8 @@ function input() {
 		
 		case 'defaultuser':
 		defaultuserOut.textContent = temp;
-		if (fromuser.value == '') { fromuser.placeholder = fromuserOut.textContent = fromuserReg.textContent = temp; }
-		if (fromuser.placeholder == '') { fromuser.placeholder = 'fromuser'; }
+		if (fromuser.value == ''){ fromuser.placeholder = fromuserOut.textContent = fromuserReg.textContent = temp; }
+		if (fromuser.placeholder == ''){ fromuser.placeholder = 'fromuser'; }
 		break;
 		
 		case 'fromuser':
@@ -269,8 +256,8 @@ function input() {
 		
 		case 'host':
 		hostOut.textContent = temp;
-		if (fromdomain.value == '') { fromdomain.placeholder = fromdomainOut.textContent = fromdomainReg.textContent = temp; }
-		if (fromdomain.placeholder == '') { fromdomain.placeholder = 'fromuser'; }
+		if (fromdomain.value == ''){ fromdomain.placeholder = fromdomainOut.textContent = fromdomainReg.textContent = temp; }
+		if (fromdomain.placeholder == ''){ fromdomain.placeholder = 'fromuser'; }
 		break;
 		
 		case 'fromdomain':
@@ -279,21 +266,20 @@ function input() {
 	}
 }
 
-function check(elem) {
-	let re = /[а-яА-ЯіІ:@\/]/g;
-	if (re.test(elem.value)) {
+function check(elem){
+	if (checkInputs(elem.value, 'kirill_and_spec')){
 		elem.classList.add('err');
 	} else {
 		elem.classList.remove('err');
 	}
 }
 
-function copy() {
+function copy(){
 	navigator.clipboard.writeText(out.innerText);
 }
 
-function showModal() {
-	if (modal) {
+function showModal(){
+	if (modal){
 		modal.classList.toggle('hidden');
 		window.addEventListener('click', outerCloseModal);
 	} else {
@@ -308,19 +294,20 @@ function showModal() {
 	}
 }
 
-function closeModal() {
+function closeModal(){
 	modal.classList.toggle('hidden');
 	window.removeEventListener('click', outerCloseModal);
 }
 
-function outerCloseModal() {
-	if (event.target == modal) {
+function outerCloseModal(){
+	if (event.target == modal){
         modal.classList.toggle('hidden');
     }
 }
 
-function generateBW() {
+function generateBW(){
 	outBWlist.value = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
+	phones.value = inputReplace(phones.value, 'phone_nums');
 	let arr = phones.value.split('\n');
 	arr.forEach(element => outBWlist.value += colorListEntity(idScenario.value, element));
 	outBWlist.value += `exten => t,1,Set(ivrRouteID=${idt.value})
@@ -329,32 +316,76 @@ exten => i,1,Goto(t,1)
 exten => h,1,Goto(vOfficeIvrAddHangupedCall,s,1)`;
 }
 
-function colorListEntity(scid, phnum) {
+function colorListEntity(scid, phnum){
 	let result = `exten => _${phnum},1,Set(ivrRouteID=${scid})
 exten => _${phnum},n,Return
 `;
 	return result;
 }
 
-function copyBW() {
+function copyBW(){
 	navigator.clipboard.writeText(outBWlist.value);
 }
 
-function versionCheck() {
-	if (!localStorage.lastVer) {
+function versionCheck(){
+	if (!localStorage.lastVer){
 		return false;
 	}
 	
 	let stored = localStorage.lastVer.split('.');
 	let current = currentVersion.split('.');
 	
-	if (parseInt(current[0], 10) > parseInt(stored[0], 10)) {
+	if (parseInt(current[0], 10) > parseInt(stored[0], 10)){
 		return false;
 	} else {
-		if (parseInt(current[1], 10) > parseInt(stored[1], 10)) {
+		if (parseInt(current[1], 10) > parseInt(stored[1], 10)){
 			return false;
 		} else {
 			return true;
 		}
+	}
+}
+
+function cons(){
+	if (((window.outerHeight - window.innerHeight) > 200) || ((window.outerWidth - window.innerWidth) > 16)){
+		console.clear();
+		console.log('%c+', 'font-size: 1px; padding: 200px; line-height: 0; background: url("https://drive.google.com/uc?id=1bbr8NW5kF2phdFCEzXYfO9oJHmhsnST7"); background-size: 253px 370px; background-repeat: no-repeat; color: transparent;');		
+	}
+}
+
+function replacingBW(){
+	this.value = inputReplace(this.value, 'numbers');
+}
+
+function checkInputs(str, type){
+	let re;
+	switch (type){
+		case 'kirill_and_spec':
+		re = /[а-яА-ЯіІ:@\/]/; 
+		return re.test(str);
+	}	
+}
+
+function inputReplace(str, type){
+	switch (type){
+		case 'no_spaces':
+		str = str.replace(/[\s]/g, '');
+		return str;
+		break;
+		
+		case 'rm_uid':
+		str = str.replace(/[^a-z0-9]/gi, '').substring(0, 4).toUpperCase();
+		return str;
+		break;
+		
+		case 'numbers':
+		str = str.replace(/[\D]+/g, '');
+		return str;
+		break;
+		
+		case 'phone_nums':
+		str = str.replace(/[ ()-]+/g, '').replace(/[^+\d]+/g, '\n').replace(/^\n+|\n+$/gm, '');
+		return str;
+		break;
 	}
 }

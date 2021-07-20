@@ -3,8 +3,20 @@
 	<head>
 		<meta charset = "utf-8">
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-		<link rel="stylesheet" href="style.css?ver=2.7.4">
-		<script src = "script.js?ver=2.7.6"></script>
+		<script>
+			var currentVersion = '2.8.0';
+			makeStyleAndScript();
+			function makeStyleAndScript(){
+				let title = document.getElementsByTagName('title')[0];
+				let script = document.createElement('script');
+				script.src = 'script.js?ver=' + currentVersion;
+				document.head.insertBefore(script, title);
+				let style = document.createElement('link');
+				style.rel='stylesheet';
+				style.href='style.css?ver=' + currentVersion;
+				document.head.insertBefore(style, title);
+}
+		</script>
 		<title>Закрытые задачи</title>
 	</head>
 	<body>
@@ -14,7 +26,7 @@
 			</header>
 			<article>
 				<div  class = "formrow">
-					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" maxlength="4" class = "ui-element">
+					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
 				</div>
 				<div  class = "formrow">
 					<span>
@@ -97,7 +109,7 @@
 						<div class = "inputs-container">
 							<input id = "idScenario" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id сценария">
 							<input id = "idt" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id t">
-							<textarea id = "phones" class = "ui-element" placeholder = "телефоны (каждый с новой строки)"></textarea>
+							<textarea id = "phones" class = "ui-element" placeholder = "телефонные номера (разделённые не пробелом)"></textarea>
 						</div>
 						<div class = "buttons-container">
 							<div  id = "generateBWlist" class = "button ui-element">Сгенерировать</div>
@@ -110,7 +122,7 @@
 		</div>
 		<footer>
 			<span id = "reset" class = "l-footer">Сбросить логин</span>
-			<span id = "ver">ver 2.7.6</span>
+			<span id = "ver"></span>
 			<span class = "r-footer">Ошибки и пожелания: <a href = "https://docs.google.com/forms/d/1yERAi7_EjHiRlA3SzCCPlR8JRTQP_KaKx-xYK0NHC_s/" target = "_blank">в форму</a> или <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">на GitHub</a>.</span>
 		</footer>
 	</body>

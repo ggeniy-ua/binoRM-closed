@@ -43,6 +43,7 @@ h1 {
 
 footer {
 	width: 95vw;
+	margin-top: 15vh;
 	display: flex;
 	justify-content: space-between;
 }
@@ -113,7 +114,9 @@ a:hover {
 }
 
 .buttons-container {
-	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .textarea {
@@ -203,4 +206,12 @@ textarea {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+#phones {
+	height: 19ch;
+}
+
+#outBWlist {
+	height: 35ch;
 }
