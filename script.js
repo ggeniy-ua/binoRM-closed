@@ -306,11 +306,11 @@ function outerCloseModal(){
 }
 
 function generateBW(){
-	outBWlist.value = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
+	outBWlist.innerText = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
 	phones.value = inputReplace(phones.value, 'phone_nums');
 	let arr = phones.value.split('\n');
-	arr.forEach(element => outBWlist.value += colorListEntity(idScenario.value, element));
-	outBWlist.value += `exten => t,1,Set(ivrRouteID=${idt.value})
+	arr.forEach(element => outBWlist.innerText += colorListEntity(idScenario.value, element));
+	outBWlist.innerText += `exten => t,1,Set(ivrRouteID=${idt.value})
 exten => t,n,Return
 exten => i,1,Goto(t,1)
 exten => h,1,Goto(vOfficeIvrAddHangupedCall,s,1)`;
@@ -324,7 +324,7 @@ exten => _${phnum},n,Return
 }
 
 function copyBW(){
-	navigator.clipboard.writeText(outBWlist.value);
+	navigator.clipboard.writeText(outBWlist.innerText);
 }
 
 function versionCheck(){
