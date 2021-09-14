@@ -1,6 +1,8 @@
 var today = new Date();
 var modal;
-var baseUrl = 'https://work.binotel.com/issues?utf8=✓&set_filter=1&per_page=200&';
+const baseUrl = 'https://work.binotel.com/issues?utf8=✓&set_filter=1&per_page=200&';
+const teamsDefaultName = 'Добавь команду';
+const teamsDefaultValue = 'Добавь команду';
 
 window.onload = function(){
 	// old
@@ -16,7 +18,7 @@ window.onload = function(){
 	document.getElementById('godiap').addEventListener('click', buttonGoDiapClick);
 	document.getElementById('reset').addEventListener('click', uidresetClick);
 	
-	RMuidField.placeholder = getLocalRMuid();
+	
 	closedDate.valueAsDate = today;
 	fromDate.valueAsDate = monday();
 	toDate.valueAsDate = today;
@@ -77,9 +79,34 @@ window.onload = function(){
 	
 	btnVer.innerText = 'ver ' + currentVersion;
 		
-	checkLocal();
+	
 	window.addEventListener('resize', cons);
 	cons();
+	
+	//boss mode
+	add = document.getElementById('add');
+	edit = document.getElementById('edit');
+	del = document.getElementById('del');
+	toggleBossMode = document.getElementById('toggleBossMode');
+	teams = document.getElementById('teams');
+	button_today_team = document.getElementById('button_today_team');
+	button_yesterday_team = document.getElementById('button_yesterday_team');
+	button_alltime_team = document.getElementById('button_alltime_team');
+	goTeam = document.getElementById('goTeam');
+	godiapTeam = document.getElementById('godiapTeam');
+	
+	toggleBossMode.addEventListener('click', switchBoss);
+	add.addEventListener('click', addTeam);
+	edit.addEventListener('click', editTeam);
+	del.addEventListener('click', delTeam);
+	
+	button_today_team.addEventListener('click', todayTeamClick);
+	button_yesterday_team.addEventListener('click', yesterdayTeamClick);
+	
+	bossElements = document.querySelectorAll('.boss');
+	
+	checkLocal();
+	RMuidField.placeholder = getLocalRMuid();
 }
 
 // old
@@ -92,15 +119,25 @@ function checkLocal(){
 		localStorage.lastVer = currentVersion;
 		showModal();
 	}
+	
+	if (!localStorage.getItem('teams')){
+		teams.add(defteam());
+	} else {
+		createTeamsFromLocal();
+	}
+	
+	if (localStorage.iAmBoss == 'true'){
+		switchBoss();
+	}
 }
 
 function firtsRun(){
-	let askRMuid = prompt ('Введи свой логин в RM:');
+	let askRMuid = prompt('Введи свой логин в RM:');
 	if (askRMuid == null){
 		return false;
 		}
 	let loginInput = inputReplace(askRMuid, 'rm_uid');
-	if (confirm ('Записать "' + loginInput + '"?')){
+	if (confirm('Записать "' + loginInput + '"?')){
 		localStorage.localRMuid = loginInput;
 	}else{
 		return false;
@@ -108,32 +145,32 @@ function firtsRun(){
 }
 
 function getLocalRMuid(){
-	return localStorage.localRMuid;
+	return [localStorage.localRMuid];
 }
 
 function change(){
 	RMuidField.value = inputReplace(RMuidField.value, 'rm_uid');
 }
 
-function getRMuid (){
+function getRMuid(){
 	let RMuidFromInput = RMuidField.value;
 	if (RMuidFromInput==''){
 		return getLocalRMuid();
 	}else{
-		return RMuidFromInput;
+		return [RMuidFromInput];
 	}
 }
 
-function todayClick (){
-	showMe(getRMuid(), ftoday());
+function todayClick(){
+	showMe(ftoday(), getRMuid());
 }
 
 function ftoday(){
 	return today.toISOString().substr(0,10);
 }
 
-function yesterdayClick (){
-	showMe(getRMuid(), fyesterday());
+function yesterdayClick(){
+	showMe(fyesterday(), getRMuid());
 }
 
 function fyesterday(){
@@ -147,13 +184,13 @@ function alltimeClick(){
 }
 
 function uidresetClick(){
-	if (confirm ('Сбросить настройку логина?')){
+	if (confirm('Сбросить настройку логина?')){
 		firtsRun();
 	}
 	RMuidField.placeholder = getLocalRMuid();
 }
 
-function buttonGoDiapClick (){
+function buttonGoDiapClick(){
 	showMeDiap(getRMuid(), from_date.value, to_date.value);
 }
 
@@ -171,30 +208,39 @@ function monday(){
 	}
 }
 
-function showMe (uid, date){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]==&op[status_id]=c&v[cf_77][]=' + uid + '&v[closed_on][]=' + date;
+function showMe(date, uid){
+	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&op[cf_77]==&op[closed_on]==&op[status_id]=c';
+	if (uid.length > 1){
+		url += '&group_by=cf_77';
+		for (i = 0; i < uid.length; i++){
+			url += '&v[cf_77][]=' + uid[i];
+		}
+	} else {
+		url += '&group_by=cf_79&v[cf_77][]=' + uid[0];
+	}
+	url += '&v[closed_on][]=' + date;
 	window.open(url, '_blank');
 }
 
-function showMeDiap (uid, from, to){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]=><&op[status_id]=c&v[cf_77][]=' + uid + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
+function showMeDiap(uid, from, to){
+	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]=><&op[status_id]=c&v[cf_77][]=' + uid[0] + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
 	window.open(url, '_blank');
 }
 
-function showMeAllTime (uid){
+function showMeAllTime(uid){
 	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&f[]=status_id&f[]=cf_77&f[]=&group_by=cf_79&op[cf_77]==&op[status_id]=c&v[cf_77][]=' + uid;
 	window.open(url, '_blank');
 }
 
 function goClick(){
-	showMe(getRMuid(), closedDate.value);
+	showMe(closedDate.value, getRMuid());
 }
 
 function goFilterClick(){
-	showMeFilter (filters.selectedIndex, closedDate.value);
+	showMeFilter(filters.selectedIndex, closedDate.value);
 }
 
-function showMeFilter (id, date){
+function showMeFilter(id, date){
 	let url = '';
 	switch (id){
 		case 0:
@@ -302,8 +348,8 @@ function closeModal(){
 
 function outerCloseModal(){
 	if (event.target == modal){
-        modal.classList.toggle('hidden');
-    }
+		modal.classList.toggle('hidden');
+	}
 }
 
 function generateBW(){
@@ -385,4 +431,150 @@ function inputReplace(str, type){
 		return str;
 		break;
 	}
+}
+
+function switchBoss(){	
+	for (i = 0; i < bossElements.length; i++){
+		let t = bossElements[i].classList;
+		t.toggle('hidden');
+	}
+	if (this.toString() != '[object Window]'){
+		if (localStorage.iAmBoss == 'true'){
+			localStorage.iAmBoss = 'false';
+		} else {
+			localStorage.iAmBoss = 'true';
+		}
+	}
+}
+
+function addTeam(){
+	let tempData = editAndAddDialog();
+	
+	if (tempData.innerText == 'null' || tempData.value == 'null'){
+		return;
+	}
+	
+	editStoredTeams(teams.options.length+1, [tempData.innerText, tempData.value]);
+	
+	if (teams.options[0].value == teamsDefaultValue){
+		teams.remove(0);
+	}
+	teams.add(tempData);
+}
+
+function editTeam(){
+	
+	let selected = teams.selectedIndex;
+	if (teams.options[selected].value == teamsDefaultValue){
+		return;
+	}
+	
+	let tempData = editAndAddDialog(selected);
+	
+	if (tempData.value == 'null' || tempData.innerText == 'null'){
+		return;
+	}
+	
+	editStoredTeams(selected, [tempData.innerText,tempData.value]);
+	
+	teams.options[selected].innerText = tempData.innerText;
+	teams.options[selected].value = tempData.value;
+}
+
+function delTeam(){
+	let selected = teams.selectedIndex;
+	if (teams.options[selected].value == teamsDefaultValue){
+		return;
+	}
+	if (confirm('Удалить команду "'+ teams.options[selected].innerText + '" с логинами "' + teams.options[selected].value + '"?')){
+		teams.remove(selected);
+		editStoredTeams(selected);
+	}
+	if (teams.options.length == 0){
+		teams.add(defteam());
+	}
+}
+
+function editAndAddDialog(id = -1){
+	let tempName = '';
+	let tempValue = '';
+	
+	if (id >= 0){
+		tempName = teams.selectedOptions[0].innerText;
+		tempValue = teams.selectedOptions[0].value;
+	}
+	
+	do {
+		tempName = prompt('Название', tempName);
+		if (tempName == null){
+			return new Option(null, null);
+		}
+		tempValue = prompt('Логины', tempValue);
+		if (tempValue == null){
+			return new Option(null, null);
+		}
+	} while (tempName == '' || tempValue == '');
+	
+	
+	let temp = tempValue.replace(/[^a-z0-9]+/gi, ' ').replace(/^\s+/, '').split(' ');
+	for (i in temp){
+		temp[i] = inputReplace(temp[i], 'rm_uid');
+	}
+	tempValue = temp.join(', ');
+	
+	let newOption = new Option(tempName, tempValue);
+	
+	
+	return newOption;
+}
+
+function createTeamsFromLocal(){
+	let stored = JSON.parse(localStorage.getItem('teams'));
+	for (i in stored){
+		teams.add(new Option(stored[i][0], stored[i][1]));
+	}
+}
+
+function defteam(){
+	let defName = teamsDefaultName;
+	let defValue = teamsDefaultValue;
+	let defOption = new Option(defName, defValue);
+	defOption.selected = defOption.disabled = defOption.hidden = true;
+	return defOption;
+}
+
+function editStoredTeams(id, newTeam = null){
+	let stored = JSON.parse(localStorage.getItem('teams'));
+	if (stored == undefined){
+		stored = [];
+	}
+	if (id > stored.length){
+		stored.push(newTeam);
+	} else if (newTeam != null){
+		stored[id][0] = newTeam[0];
+		stored[id][1] = newTeam[1];
+	} else {
+		stored.splice(id, 1);
+	}
+	localStorage.setItem('teams', JSON.stringify(stored));	
+}
+
+function todayTeamClick(){
+	let selected = teams.selectedIndex;
+	if (teams.options[selected].value == teamsDefaultValue){
+		return;
+	}
+	let uids = teams.options[selected].value.split(', ');
+	
+	showMe(ftoday(), uids);
+}
+
+function yesterdayTeamClick(){
+	let selected = teams.selectedIndex;
+	if (teams.options[selected].value == teamsDefaultValue){
+		return;
+	}
+	let uids = teams.options[selected].value.split(', ');
+	
+	showMe(fyesterday(), uids);
 }

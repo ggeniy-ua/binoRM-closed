@@ -62,9 +62,10 @@ a:hover {
 	text-decoration: underline;
 }
 
-#reset {
+.clickable-text {
 	cursor: pointer;
 	color: gray;
+	user-select: none;
 }
 
 .button {
@@ -163,7 +164,7 @@ textarea {
 	background-color: rgba(0,0,0,0.8);
 }
 
-.hidden {
+.hidden, .not-boss {
 	display: none;
 }
 
@@ -215,4 +216,12 @@ textarea {
 
 #outBWlist {
 	height: 35ch;
+}
+
+#toggleBossMode {
+	font-size: xx-small;
+}
+
+.ears {
+	text-align: left;
 }
