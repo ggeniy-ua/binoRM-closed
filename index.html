@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.9.1a';
+			var currentVersion = '2.9.2b';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -24,7 +24,7 @@
 			<header>
 				<h1>Закрытые задачи</h1>
 			</header>
-			<span id = "toggleBossMode" class = "clickable-text">Режим начальника (альфа)</span>
+			<div id = "toggleBossMode" class = "button-small button ui-element">Режим начальника (бета)</div>
 			<article>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
@@ -39,21 +39,20 @@
 				<div class = "space boss hidden"></div>
 				<div  class = "formrow boss hidden">
 					<span id = "add" class = "button ui-element" title = "Добавить">➕</span><span id = "edit" class = "button ui-element" title = "Редактировать">✎</span><span id = "del" class = "button ui-element" title = "Удалить">🗑</span>
-					<select id = "teams">
+					<select id = "teams" class = "ui-element">
 					</select>
 				</div>
 				<div  class = "formrow boss hidden">
 					<span>
 						<div  id = "button_today_team" class = "button ui-element">Сегодня (team)</div>
 						<div id = "button_yesterday_team" class = "button ui-element">Вчера (team)</div>
-						<!-- <div id = "button_alltime_team" class = "button ui-element">От начала времён (team)</div> -->
 					</span>
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">
 					<input id = "closed_date" type = "date" class = "ui-element">
 					<div id = "go" class = "button ui-element">Свои задачи</div>
-					<!-- <div id = "goTeam" class = "button ui-element boss hidden">(team)</div> -->
+					<div id = "goTeam" class = "button ui-element boss hidden">(team)</div>
 				</div>
 				<div  class = "formrow">
 					<select id = "filters" class = "ui-element">
@@ -72,7 +71,7 @@
 				</div>
 				<div  class = "formrow">
 					<div id = "godiap" class = "button ui-element">Свои задачи</div>
-					<!-- <div id = "godiapTeam" class = "button ui-element boss hidden">(team)</div> -->
+					<div id = "godiapTeam" class = "button ui-element boss hidden">(team)</div>
 				</div>
 				<div class = "space"></div>
 				<div  class = "form-container">
@@ -138,9 +137,9 @@
 			</article>
 		</div>
 		<footer>
-			<span id = "reset" class = "l-footer clickable-text">Сбросить логин</span>
+			<span id = "reset" class = "l-footer button-small button ui-element">Сбросить логин</span>
 			<span id = "ver"></span>
-			<span class = "r-footer">Ошибки и пожелания: <a href = "https://docs.google.com/forms/d/1yERAi7_EjHiRlA3SzCCPlR8JRTQP_KaKx-xYK0NHC_s/" target = "_blank">в форму</a>, <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank">на GitHub</a> или <a href = "https://t.me/joinchat/dvy76Aomw3RkNDhi" target = "_blank">в Telegram</a>.</span>
+			<span class = "r-footer">Ошибки и пожелания: <a href = "https://docs.google.com/forms/d/1yERAi7_EjHiRlA3SzCCPlR8JRTQP_KaKx-xYK0NHC_s/" target = "_blank" rel = "nofollow noopener noreferrer">в форму</a>, <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank" rel = "nofollow noopener noreferrer">на GitHub</a> или <a href = "https://t.me/joinchat/dvy76Aomw3RkNDhi" target = "_blank" rel = "nofollow noopener noreferrer">в Telegram</a>.</span>
 		</footer>
 	</body>
 </html>

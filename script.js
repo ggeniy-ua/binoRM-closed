@@ -11,11 +11,11 @@ window.onload = function(){
 	toDate = document.getElementById('to_date');
 	RMuidField = document.getElementById('RMuid');	
 	RMuidField.addEventListener('input', change);
-	document.getElementById('button_today').addEventListener('click', todayClick);
-	document.getElementById('button_yesterday').addEventListener('click', yesterdayClick);
+	document.getElementById('button_today').addEventListener('click', function(){todayClick('solo');});
+	document.getElementById('button_yesterday').addEventListener('click', function(){yesterdayClick('solo');});
 	document.getElementById('button_alltime').addEventListener('click', alltimeClick);
-	document.getElementById('go').addEventListener('click', goClick);
-	document.getElementById('godiap').addEventListener('click', buttonGoDiapClick);
+	document.getElementById('go').addEventListener('click', function(){goClick('solo');});
+	document.getElementById('godiap').addEventListener('click', function(){buttonGoDiapClick('solo');});
 	document.getElementById('reset').addEventListener('click', uidresetClick);
 	
 	
@@ -91,7 +91,6 @@ window.onload = function(){
 	teams = document.getElementById('teams');
 	button_today_team = document.getElementById('button_today_team');
 	button_yesterday_team = document.getElementById('button_yesterday_team');
-	button_alltime_team = document.getElementById('button_alltime_team');
 	goTeam = document.getElementById('goTeam');
 	godiapTeam = document.getElementById('godiapTeam');
 	
@@ -100,10 +99,13 @@ window.onload = function(){
 	edit.addEventListener('click', editTeam);
 	del.addEventListener('click', delTeam);
 	
-	button_today_team.addEventListener('click', todayTeamClick);
-	button_yesterday_team.addEventListener('click', yesterdayTeamClick);
+	button_today_team.addEventListener('click', function(){todayClick('team');});
+	button_yesterday_team.addEventListener('click', function(){yesterdayClick('team');});
+	goTeam.addEventListener('click', function(){goClick('team');});
+	godiapTeam.addEventListener('click', function(){buttonGoDiapClick('team');});
 	
 	bossElements = document.querySelectorAll('.boss');
+	
 	
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
@@ -121,6 +123,8 @@ function checkLocal(){
 	}
 	
 	if (!localStorage.getItem('teams')){
+		teams.add(defteam());
+	} else if (JSON.parse(localStorage.getItem('teams')).length == 0){
 		teams.add(defteam());
 	} else {
 		createTeamsFromLocal();
@@ -152,25 +156,40 @@ function change(){
 	RMuidField.value = inputReplace(RMuidField.value, 'rm_uid');
 }
 
-function getRMuid(){
-	let RMuidFromInput = RMuidField.value;
-	if (RMuidFromInput==''){
-		return getLocalRMuid();
-	}else{
-		return [RMuidFromInput];
+function getRMuid(type){
+	switch (type){
+		case 'solo':
+		let RMuidFromInput = RMuidField.value;
+		if (RMuidFromInput==''){
+			return getLocalRMuid();
+		}else{
+			return [RMuidFromInput];
+		}
+		break;
+		
+		case 'team':
+		let uids = teams.options[teams.selectedIndex].value.split(', ');
+		return uids;
+		break;
 	}
 }
 
-function todayClick(){
-	showMe(ftoday(), getRMuid());
+function todayClick(type){
+	if (type == 'team' && checkIsTeamDef()){
+		return;
+	}
+	showMe(getRMuid(type), ftoday());
 }
 
 function ftoday(){
 	return today.toISOString().substr(0,10);
 }
 
-function yesterdayClick(){
-	showMe(fyesterday(), getRMuid());
+function yesterdayClick(type){
+	if (type == 'team' && checkIsTeamDef()){
+		return;
+	}
+	showMe(getRMuid(type), fyesterday());
 }
 
 function fyesterday(){
@@ -180,7 +199,7 @@ function fyesterday(){
 }
 
 function alltimeClick(){
-	showMeAllTime(getRMuid());
+	showMeAllTime(getRMuid('solo'));
 }
 
 function uidresetClick(){
@@ -190,8 +209,11 @@ function uidresetClick(){
 	RMuidField.placeholder = getLocalRMuid();
 }
 
-function buttonGoDiapClick(){
-	showMeDiap(getRMuid(), from_date.value, to_date.value);
+function buttonGoDiapClick(type){
+	if (type == 'team' && checkIsTeamDef()){
+		return;
+	}
+	showMeDiap(getRMuid(type), from_date.value, to_date.value);
 }
 
 function monday(){
@@ -208,23 +230,28 @@ function monday(){
 	}
 }
 
-function showMe(date, uid){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&op[cf_77]==&op[closed_on]==&op[status_id]=c';
-	if (uid.length > 1){
-		url += '&group_by=cf_77';
-		for (i = 0; i < uid.length; i++){
-			url += '&v[cf_77][]=' + uid[i];
-		}
-	} else {
-		url += '&group_by=cf_79&v[cf_77][]=' + uid[0];
-	}
-	url += '&v[closed_on][]=' + date;
+function showMe(uid, date){
+	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&op[cf_77]==&op[closed_on]==&op[status_id]=c' + uidsUrlConstructor(uid) + '&v[closed_on][]=' + date;
 	window.open(url, '_blank');
 }
 
 function showMeDiap(uid, from, to){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&group_by=cf_79&op[cf_77]==&op[closed_on]=><&op[status_id]=c&v[cf_77][]=' + uid[0] + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
+	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&op[cf_77]==&op[closed_on]=><&op[status_id]=c' + uidsUrlConstructor(uid) + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
 	window.open(url, '_blank');
+}
+
+function uidsUrlConstructor(uids){
+	let url = '';
+	if (uids.length > 1){
+		url += '&group_by=cf_77';
+		for (i = 0; i < uids.length; i++){
+			url += '&v[cf_77][]=' + uids[i];
+		}
+	} else {
+		url += '&group_by=cf_79&v[cf_77][]=' + uids[0];
+	}
+	
+	return url;
 }
 
 function showMeAllTime(uid){
@@ -232,8 +259,8 @@ function showMeAllTime(uid){
 	window.open(url, '_blank');
 }
 
-function goClick(){
-	showMe(closedDate.value, getRMuid());
+function goClick(type){
+	showMe(getRMuid(type), closedDate.value);
 }
 
 function goFilterClick(){
@@ -463,9 +490,8 @@ function addTeam(){
 }
 
 function editTeam(){
-	
 	let selected = teams.selectedIndex;
-	if (teams.options[selected].value == teamsDefaultValue){
+	if (checkIsTeamDef()){
 		return;
 	}
 	
@@ -483,7 +509,7 @@ function editTeam(){
 
 function delTeam(){
 	let selected = teams.selectedIndex;
-	if (teams.options[selected].value == teamsDefaultValue){
+	if (checkIsTeamDef()){
 		return;
 	}
 	if (confirm('Удалить команду "'+ teams.options[selected].innerText + '" с логинами "' + teams.options[selected].value + '"?')){
@@ -559,22 +585,11 @@ function editStoredTeams(id, newTeam = null){
 	localStorage.setItem('teams', JSON.stringify(stored));	
 }
 
-function todayTeamClick(){
+function checkIsTeamDef(){
 	let selected = teams.selectedIndex;
 	if (teams.options[selected].value == teamsDefaultValue){
-		return;
+		return true;
+	} else {
+		return false;
 	}
-	let uids = teams.options[selected].value.split(', ');
-	
-	showMe(ftoday(), uids);
-}
-
-function yesterdayTeamClick(){
-	let selected = teams.selectedIndex;
-	if (teams.options[selected].value == teamsDefaultValue){
-		return;
-	}
-	let uids = teams.options[selected].value.split(', ');
-	
-	showMe(fyesterday(), uids);
 }

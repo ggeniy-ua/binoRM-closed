@@ -62,10 +62,8 @@ a:hover {
 	text-decoration: underline;
 }
 
-.clickable-text {
-	cursor: pointer;
-	color: gray;
-	user-select: none;
+.button-small {
+	font-size: xx-small;
 }
 
 .button {
@@ -216,10 +214,6 @@ textarea {
 
 #outBWlist {
 	height: 35ch;
-}
-
-#toggleBossMode {
-	font-size: xx-small;
 }
 
 .ears {
