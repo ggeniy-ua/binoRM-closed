@@ -260,6 +260,9 @@ function showMeAllTime(uid){
 }
 
 function goClick(type){
+	if (type == 'team' && checkIsTeamDef()){
+		return;
+	}
 	showMe(getRMuid(type), closedDate.value);
 }
 
