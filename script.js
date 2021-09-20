@@ -103,6 +103,8 @@ window.onload = function(){
 	button_yesterday_team.addEventListener('click', function(){yesterdayClick('team');});
 	goTeam.addEventListener('click', function(){goClick('team');});
 	godiapTeam.addEventListener('click', function(){buttonGoDiapClick('team');});
+	teams.addEventListener('change', fillTeamButtons);
+
 	
 	bossElements = document.querySelectorAll('.boss');
 	
@@ -129,6 +131,8 @@ function checkLocal(){
 	} else {
 		createTeamsFromLocal();
 	}
+	
+	fillTeamButtons();
 	
 	if (localStorage.iAmBoss == 'true'){
 		switchBoss();
@@ -468,6 +472,7 @@ function switchBoss(){
 		let t = bossElements[i].classList;
 		t.toggle('hidden');
 	}
+	toggleBossMode.classList.toggle('pressed');
 	if (this.toString() != '[object Window]'){
 		if (localStorage.iAmBoss == 'true'){
 			localStorage.iAmBoss = 'false';
@@ -490,6 +495,7 @@ function addTeam(){
 		teams.remove(0);
 	}
 	teams.add(tempData);
+	fillTeamButtons();
 }
 
 function editTeam(){
@@ -508,6 +514,7 @@ function editTeam(){
 	
 	teams.options[selected].innerText = tempData.innerText;
 	teams.options[selected].value = tempData.value;
+	fillTeamButtons();
 }
 
 function delTeam(){
@@ -522,6 +529,7 @@ function delTeam(){
 	if (teams.options.length == 0){
 		teams.add(defteam());
 	}
+	fillTeamButtons();
 }
 
 function editAndAddDialog(id = -1){
@@ -595,4 +603,16 @@ function checkIsTeamDef(){
 	} else {
 		return false;
 	}
+}
+
+function fillTeamButtons(){
+	let team = teams.selectedOptions[0].innerText;
+	if (team == teamsDefaultValue){
+		button_today_team.innerText = button_yesterday_team.innerText = goTeam.innerText = godiapTeam.innerText = 'Команда не выбрана';
+	} else {
+		button_today_team.innerText = 'Сегодня по "' + team + '"';
+		button_yesterday_team.innerText = 'Вчера по "' + team + '"';
+		goTeam.innerText = godiapTeam.innerText = '"' + team + '"';
+	}
+	return;
 }

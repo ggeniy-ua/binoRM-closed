@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang = "ru">
 	<head>
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.9.3b';
+			var currentVersion = '2.10.0';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -24,7 +24,6 @@
 			<header>
 				<h1>Закрытые задачи</h1>
 			</header>
-			<div id = "toggleBossMode" class = "button-small button ui-element">Режим начальника (бета)</div>
 			<article>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
@@ -54,6 +53,7 @@
 					<div id = "go" class = "button ui-element">Свои задачи</div>
 					<div id = "goTeam" class = "button ui-element boss hidden">(team)</div>
 				</div>
+				<div class = "space"></div>
 				<div  class = "formrow">
 					<select id = "filters" class = "ui-element">
 						<option>Тикеты</option>
@@ -137,9 +137,19 @@
 			</article>
 		</div>
 		<footer>
-			<span id = "reset" class = "l-footer button-small button ui-element">Сбросить логин</span>
-			<span id = "ver"></span>
-			<span class = "r-footer">Ошибки и пожелания: <a href = "https://docs.google.com/forms/d/1yERAi7_EjHiRlA3SzCCPlR8JRTQP_KaKx-xYK0NHC_s/" target = "_blank" rel = "nofollow noopener noreferrer">в форму</a>, <a href = "https://github.com/ggeniy-ua/binoRM-closed" target = "_blank" rel = "nofollow noopener noreferrer">на GitHub</a> или <a href = "https://t.me/joinchat/dvy76Aomw3RkNDhi" target = "_blank" rel = "nofollow noopener noreferrer">в Telegram</a>.</span>
+			<div class = "l-footer">
+				<span id = "toggleBossMode" class = "button-small button ui-element">Режим начальника</span>
+				<span id = "reset" class = "button-small button ui-element">Сбросить логин</span>
+			</div>
+			<div class = "c-footer">
+				<span id = "ver"></span>
+			</div>
+			<div class="r-footer">
+				<span>Ошибки и пожелания:</span>
+				<span><a href="https://docs.google.com/forms/d/1yERAi7_EjHiRlA3SzCCPlR8JRTQP_KaKx-xYK0NHC_s/" target="_blank" rel="nofollow noopener noreferrer">в форму</a></span>
+				<span><a href="https://github.com/ggeniy-ua/binoRM-closed" target="_blank" rel="nofollow noopener noreferrer">на GitHub</a></span>
+				<span><a href="https://t.me/joinchat/dvy76Aomw3RkNDhi" target="_blank" rel="nofollow noopener noreferrer">в Telegram</a></span>
+			</div>
 		</footer>
 	</body>
 </html>

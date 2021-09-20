@@ -77,7 +77,7 @@ a:hover {
 .button:hover {
 	opacity: 0.9;
 }
-.button:active {
+.button:active, .pressed {
 	box-shadow: inset 1px 1px 0px 0px #000;
 }
 
@@ -92,8 +92,6 @@ a:hover {
 .ui-element:focus-visible {
 	outline: none;
 }
-
-
 
 .form-container {
 	display: flex;
@@ -218,4 +216,25 @@ textarea {
 
 .ears {
 	text-align: left;
+}
+
+.l-footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+
+.c-footer {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: column;
+}
+
+.r-footer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: flex-end;
 }
