@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.10.0';
+			var currentVersion = '2.10.1';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -27,13 +27,12 @@
 			<article>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
+					<input type = "checkbox" id = "useOldCf" class = "ui-element" title = "Использовать поиск по OLD КТО"><label for = "useOldCf" title = "Использовать поиск по OLD КТО">Старый фильтр</label>
 				</div>
 				<div  class = "formrow">
-					<span>
-						<div  id = "button_today" class = "button ui-element">Сегодня</div>
-						<div id = "button_yesterday" class = "button ui-element">Вчера</div>
-						<div id = "button_alltime" class = "button ui-element">От начала времён</div>
-					</span>
+					<div  id = "button_today" class = "button ui-element">Сегодня</div>
+					<div id = "button_yesterday" class = "button ui-element">Вчера</div>
+					<div id = "button_alltime" class = "button ui-element">От начала времён</div>
 				</div>
 				<div class = "space boss hidden"></div>
 				<div  class = "formrow boss hidden">
@@ -42,10 +41,8 @@
 					</select>
 				</div>
 				<div  class = "formrow boss hidden">
-					<span>
-						<div  id = "button_today_team" class = "button ui-element">Сегодня (team)</div>
-						<div id = "button_yesterday_team" class = "button ui-element">Вчера (team)</div>
-					</span>
+					<div  id = "button_today_team" class = "button ui-element">Сегодня (team)</div>
+					<div id = "button_yesterday_team" class = "button ui-element">Вчера (team)</div>
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">

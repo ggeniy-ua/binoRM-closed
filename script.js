@@ -108,6 +108,7 @@ window.onload = function(){
 	
 	bossElements = document.querySelectorAll('.boss');
 	
+	useOldCf = document.getElementById('useOldCf');
 	
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
@@ -141,7 +142,7 @@ function checkLocal(){
 
 function firtsRun(){
 	let askRMuid = prompt('Введи свой логин в RM:');
-	if (askRMuid == null){
+	if (askRMuid == null || askRMuid == ''){
 		return false;
 		}
 	let loginInput = inputReplace(askRMuid, 'rm_uid');
@@ -235,31 +236,31 @@ function monday(){
 }
 
 function showMe(uid, date){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&op[cf_77]==&op[closed_on]==&op[status_id]=c' + uidsUrlConstructor(uid) + '&v[closed_on][]=' + date;
+	let url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=' + newOrOldFilter() + '&f[]=closed_on&f[]=&op[' + newOrOldFilter() + ']==&op[closed_on]==&op[status_id]=c' + uidsUrlConstructor(uid) + '&v[closed_on][]=' + date;
 	window.open(url, '_blank');
 }
 
 function showMeDiap(uid, from, to){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=cf_77&f[]=closed_on&f[]=&op[cf_77]==&op[closed_on]=><&op[status_id]=c' + uidsUrlConstructor(uid) + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
+	let url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=' + newOrOldFilter() + '&f[]=closed_on&f[]=&op[' + newOrOldFilter() + ']==&op[closed_on]=><&op[status_id]=c' + uidsUrlConstructor(uid) + '&v[closed_on][]=' + from + '&v[closed_on][]=' + to;
 	window.open(url, '_blank');
 }
 
 function uidsUrlConstructor(uids){
 	let url = '';
 	if (uids.length > 1){
-		url += '&group_by=cf_77';
+		url += '&group_by=' + newOrOldFilter() + '';
 		for (i = 0; i < uids.length; i++){
-			url += '&v[cf_77][]=' + uids[i];
+			url += '&v[' + newOrOldFilter() + '][]=' + uids[i];
 		}
 	} else {
-		url += '&group_by=cf_79&v[cf_77][]=' + uids[0];
+		url += '&group_by=cf_79&v[' + newOrOldFilter() + '][]=' + uids[0];
 	}
 	
 	return url;
 }
 
 function showMeAllTime(uid){
-	let url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&f[]=status_id&f[]=cf_77&f[]=&group_by=cf_79&op[cf_77]==&op[status_id]=c&v[cf_77][]=' + uid;
+	let url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&f[]=status_id&f[]=' + newOrOldFilter() + '&f[]=&group_by=cf_79&op[' + newOrOldFilter() + ']==&op[status_id]=c&v[' + newOrOldFilter() + '][]=' + uid;
 	window.open(url, '_blank');
 }
 
@@ -278,27 +279,27 @@ function showMeFilter(id, date){
 	let url = '';
 	switch (id){
 		case 0:
-		url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=38. ОТП Изменение cценария обработки Входящих звонков | Исходящих звонков&v[cf_79][]=5. ОТП Поддержка клиента &v[closed_on][]=' + date;
+		url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=' + newOrOldFilter() + '&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=38. ОТП Изменение cценария обработки Входящих звонков | Исходящих звонков&v[cf_79][]=5. ОТП Поддержка клиента &v[closed_on][]=' + date;
 		break;
 		
 		case 1:
-		url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=2. ОТП Авария локально клиент&v[cf_79][]=3. ОТП Авария Бинотел&v[cf_79][]=4. ОТП ОК Авария&v[closed_on][]=' + date;
+		url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=' + newOrOldFilter() + '&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=2. ОТП Авария локально клиент&v[cf_79][]=3. ОТП Авария Бинотел&v[cf_79][]=4. ОТП ОК Авария&v[closed_on][]=' + date;
 		break;
 		
 		case 2:
-		url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=32. ОТП Удаленная настройка - Интеграция c Bitrix24 &v[cf_79][]=33. ОТП Удаленная настройка - Интеграция c AmoCRM &v[cf_79][]=36. ОТП Консультация API &v[cf_79][]=8. ОТП Удаленная настройка - Интеграция CRM &v[closed_on][]=' + date;
+		url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=' + newOrOldFilter() + '&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=32. ОТП Удаленная настройка - Интеграция c Bitrix24 &v[cf_79][]=33. ОТП Удаленная настройка - Интеграция c AmoCRM &v[cf_79][]=36. ОТП Консультация API &v[cf_79][]=8. ОТП Удаленная настройка - Интеграция CRM &v[closed_on][]=' + date;
 		break;
 		
 		case 3:
-		url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=12. ОТП Включение - Исполнить ТЗ сложное&v[cf_79][]=11. ОТП Включение - Исполнить ТЗ легкое&v[closed_on][]=' + date;
+		url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=' + newOrOldFilter() + '&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=12. ОТП Включение - Исполнить ТЗ сложное&v[cf_79][]=11. ОТП Включение - Исполнить ТЗ легкое&v[closed_on][]=' + date;
 		break;
 		
 		case 4:
-		url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=17. ОТП Включение - Подключение номера&v[cf_79][]=6. ОТП Удаленная настройка - Программный телефон&v[cf_79][]=7. ОТП Удаленная настройка - IP телефон&v[cf_79][]=9. ОТП Удаленная настройка - GSM шлюз&v[closed_on][]=' + date;
+		url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=' + newOrOldFilter() + '&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=17. ОТП Включение - Подключение номера&v[cf_79][]=6. ОТП Удаленная настройка - Программный телефон&v[cf_79][]=7. ОТП Удаленная настройка - IP телефон&v[cf_79][]=9. ОТП Удаленная настройка - GSM шлюз&v[closed_on][]=' + date;
 		break;
 		
 		case 5:
-		url = baseUrl + 'c[]=cf_77&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=cf_77&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=16. АЗ Включение - Аудиозапись Медиасистем&v[cf_79][]=15. АЗ Включение - Аудиозапись Ольга Писаренко&v[closed_on][]=' + date;
+		url = baseUrl + 'c[]=' + newOrOldFilter() + '&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=cf_79&f[]=status_id&f[]=closed_on&f[]=&group_by=' + newOrOldFilter() + '&op[cf_79]==&op[closed_on]==&op[status_id]=c&v[cf_79][]=16. АЗ Включение - Аудиозапись Медиасистем&v[cf_79][]=15. АЗ Включение - Аудиозапись Ольга Писаренко&v[closed_on][]=' + date;
 		break;
 	}
 	window.open(url, '_blank');
@@ -615,4 +616,12 @@ function fillTeamButtons(){
 		goTeam.innerText = godiapTeam.innerText = '"' + team + '"';
 	}
 	return;
+}
+
+function newOrOldFilter(){
+	if (useOldCf.checked){
+		return 'cf_77';
+	} else {
+		return 'cf_154';
+	}
 }
