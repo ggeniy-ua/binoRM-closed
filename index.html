@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.10.2';
+			var currentVersion = '2.11.0';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -71,6 +71,7 @@
 					<div id = "godiapTeam" class = "button ui-element boss hidden">(team)</div>
 				</div>
 				<div class = "space"></div>
+				<span class = "formrow">Добавление номера</span>
 				<div  class = "form-container">
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
 					<div class = "column-container">
@@ -80,7 +81,14 @@
 							<input id = "defaultuser" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "defaultuser">
 							<input id = "fromuser" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "fromuser">
 							<input id = "secret" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "secret">
-							<input id = "host" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "host">
+							<input list="operators" id = "host" class = "ui-element" size = "10" autocomplete = "off" placeholder = "host">
+								<datalist id="operators">
+									<option value="sipnet.net">Сипнет</option>
+									<option value="sip.intertelecom.ua">Интертелеком ИТ</option>
+									<option value="217.76.71.17">Теле2 Tele2 регистрация</option>
+									<option value="217.76.78.7">Теле2 Tele2 транк</option>
+									<option value="sip.ukrtel.net">Укртелеком УКТ</option>
+								</datalist>
 							<input id = "fromdomain" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "fromdomain">
 						</div>
 						<div class = "buttons-container">

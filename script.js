@@ -313,7 +313,11 @@ function showMeFilter(id, date){
 // add number
 function input(){
 	let temp = this.value = inputReplace(this.value, 'no_spaces');
-	check(this);
+	if (this.id == 'panelid' || this.id == 'number'){
+		check(this, 'not_a_num');
+	} else {
+		check(this, 'kirill_and_spec');
+	}
 	if (this.value == ''){
 		this.placeholder = this.id;
 	}
@@ -335,6 +339,7 @@ function input(){
 		
 		case 'fromuser':
 		fromuserOut.textContent = fromuserReg.textContent = temp;
+		if (fromuser.value == '' && defaultuser.value != ''){ fromuser.placeholder = fromuserOut.textContent = fromuserReg.textContent = defaultuser.value; }
 		break;
 		
 		case 'secret':
@@ -349,12 +354,13 @@ function input(){
 		
 		case 'fromdomain':
 		fromdomainOut.textContent = fromdomainReg.textContent = temp;
+		if (fromdomain.value == '' && host.value != ''){ fromdomain.placeholder = fromdomainOut.textContent = fromdomainReg.textContent = host.value; }
 		break;
 	}
 }
 
-function check(elem){
-	if (checkInputs(elem.value, 'kirill_and_spec')){
+function check(elem, type){
+	if (checkInputs(elem.value, type)){
 		elem.classList.add('err');
 	} else {
 		elem.classList.remove('err');
@@ -445,6 +451,10 @@ function checkInputs(str, type){
 	switch (type){
 		case 'kirill_and_spec':
 		re = /[а-яА-ЯіІ:@\/]/; 
+		return re.test(str);
+		
+		case 'not_a_num':
+		re = /\D/; 
 		return re.test(str);
 	}	
 }

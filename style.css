@@ -242,3 +242,7 @@ textarea {
 label {
 	user-select: none;
 }
+
+#host::-webkit-calendar-picker-indicator {
+	display: none !important;
+}
