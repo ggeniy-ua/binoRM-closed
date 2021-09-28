@@ -310,7 +310,7 @@ function showMeFilter(id, date){
 // add number
 function input(){
 	let temp = this.value = inputReplace(this.value, 'no_spaces');
-	if (['panelid','number','port'].includes(this.id)){
+	if (['panelid', 'number', 'port'].includes(this.id)){
 		check(this, 'not_a_num');
 	} else {
 		check(this, 'kirill_and_spec');
@@ -369,17 +369,18 @@ function getDataFromList(str){
 
 function generateNumberClick(type){
 	if (type == 'new'){
-		generateNumber('new');
+		generateNumberBase('new');
 	} else if (type == 'add'){
 		if (tempNumber == ''){
-			generateNumber('new');
+			generateNumberBase('new');
 		} else {
-			generateNumber('add');
+			generateNumberBase('add');
 		}
 	}
+	check(number, 'not_a_num');
 }
 
-function generateNumber(type){
+function generateNumberBase(type){
 	let temp;
 	if (type == 'new'){
 		temp = 'Просьба добавить для: https://panel.binotel.com/?module=pbxNumbersEnhanced&action=edit&companyID=' + panelid.value;
@@ -388,26 +389,35 @@ function generateNumber(type){
 		temp = tempNumber;
 	}
 	
-	temp += '\n\nНомер ' + number.value + '\n\n';
-	
-	for (i = 2; i < phoneInputs.length; i++){
-		let tempVal = getValue(phoneInputs[i]);
-		if (tempVal != ''){
-			temp += phoneInputs[i].id + ' = ' + tempVal + '\n';
-		}
-	}
-	
-	if (!noReg.checked){
-		if (getValue(outboundproxy) == '' && getValue(port) == ''){
-			temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + '/' + getValue(number) + '\n';
-		} else if (getValue(outboundproxy) != ''){
-			temp += '\nregister => ' + getValue(fromuser) + '@' + getValue(fromdomain) + ':' + getValue(secret) + ':' + getValue(fromuser) + '@' + getValue(outboundproxy) + '/' + getValue(number) + '\n';
-		} else if (getValue(port) != ''){
-			temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + ':' + getValue(port) + '/' + getValue(number) + '\n';
-		}
-	}
+	temp += generateNumberMain(noReg.checked);
 	
 	out.innerText = tempNumber = temp;
+}
+
+function generateNumberMain(isTrunk){
+	let temp = '';
+	number.value = inputReplace(number.value, 'phone_nums');
+	let arr = number.value.split('\n');
+	arr.forEach(element => {
+		temp += '\n\nНомер ' + element + '\n\n';
+		for (i = 2; i < phoneInputs.length; i++){
+			let tempVal = getValue(phoneInputs[i]);
+			if (tempVal != ''){
+				temp += phoneInputs[i].id + ' = ' + tempVal + '\n';
+			}
+		}
+		
+		if (!isTrunk){
+			if (getValue(outboundproxy) == '' && getValue(port) == ''){
+				temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + '/' + element + '\n';
+			} else if (getValue(outboundproxy) != ''){
+				temp += '\nregister => ' + getValue(fromuser) + '@' + getValue(fromdomain) + ':' + getValue(secret) + ':' + getValue(fromuser) + '@' + getValue(outboundproxy) + '/' + element + '\n';
+			} else if (getValue(port) != ''){
+				temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + ':' + getValue(port) + '/' + element + '\n';
+			}
+		}
+	});
+	return temp;
 }
 
 function getValue(elem){
@@ -519,7 +529,7 @@ function checkInputs(str, type){
 		return re.test(str);
 		
 		case 'not_a_num':
-		re = /\D/; 
+		re = /[^\d\n\r+_]/; 
 		return re.test(str);
 	}	
 }
@@ -527,7 +537,7 @@ function checkInputs(str, type){
 function inputReplace(str, type){
 	switch (type){
 		case 'no_spaces':
-		str = str.replace(/[\s]/g, '');
+		str = str.replace(/[\f\t\v​\u00A0\u1680​\u180e\u2000​\u2001\u2002​\u2003\u2004​\u2005\u2006​\u2007\u2008​\u2009\u200a​\u2028\u2029​\u2028\u2029​\u202f\u205f​\u3000\u0020]/g, '');
 		return str;
 		break;
 		
@@ -542,7 +552,7 @@ function inputReplace(str, type){
 		break;
 		
 		case 'phone_nums':
-		str = str.replace(/[ ()-]+/g, '').replace(/[^+\d]+/g, '\n').replace(/^\n+|\n+$/gm, '');
+		str = str.replace(/[ ()-]+/g, '').replace(/[^+_\d]+/g, '\n').replace(/^\n+|\n+$/gm, '');
 		return str;
 		break;
 	}

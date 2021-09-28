@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.12.1';
+			var currentVersion = '2.13.0';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -77,7 +77,7 @@
 					<div class = "column-container">
 						<div class = "inputs-container">
 							<input id = "panelid" class = "ui-element" type = "number" maxlength = "10" autocomplete = "off" placeholder = "panelid">
-							<input id = "number" class = "ui-element" type = "text" autocomplete = "off" placeholder = "number">
+							<textarea id = "number" class = "phones ui-element" autocomplete = "off" placeholder = "number"></textarea>
 							<input id = "defaultuser" class = "ui-element" type = "text" autocomplete = "off" placeholder = "defaultuser">
 							<input id = "fromuser" class = "ui-element" type = "text" autocomplete = "off" placeholder = "fromuser">
 							<input id = "secret" class = "ui-element" type = "text" autocomplete = "off" placeholder = "secret">
@@ -111,7 +111,7 @@
 						<div class = "inputs-container">
 							<input id = "idScenario" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id сценария">
 							<input id = "idt" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id t">
-							<textarea id = "phones" class = "ui-element" placeholder = "телефонные номера (разделённые не пробелом)"></textarea>
+							<textarea id = "phones" class = "phones ui-element" placeholder = "телефонные номера (разделённые не пробелом)"></textarea>
 						</div>
 						<div class = "buttons-container">
 							<div  id = "generateBWlist" class = "button ui-element">Сгенерировать</div>

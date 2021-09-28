@@ -124,7 +124,7 @@ a:hover {
 	align-items: flex-start;
 	padding: 5px;
 	width: 60ch;
-	height: 50ch;
+	height: 60ch;
 	overflow-x: hidden;
 	overflow-y: auto;
 	font-family: monospace;
@@ -210,8 +210,8 @@ textarea {
 	justify-content: space-between;
 }
 
-#phones {
-	height: 19ch;
+.phones {
+	height: 15ch;
 }
 
 .ears {
