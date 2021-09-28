@@ -1,5 +1,6 @@
 var today = new Date();
 var modal;
+var tempNumber = '';
 const baseUrl = 'https://work.binotel.com/issues?utf8=✓&set_filter=1&per_page=200&';
 const teamsDefaultName = 'Добавь команду';
 const teamsDefaultValue = 'Добавь команду';
@@ -34,33 +35,29 @@ window.onload = function(){
 	secret = document.getElementById('secret');
 	host = document.getElementById('host');
 	fromdomain = document.getElementById('fromdomain');
+	port = document.getElementById('port');
+	outboundproxy = document.getElementById('outboundproxy');
+	
+	noReg = document.getElementById('noReg');
 	
 	out = document.getElementById('out');
 	
-	panelidOut = document.getElementById('panelidOut');
-	numberOut = document.getElementById('numberOut');
-	defaultuserOut = document.getElementById('defaultuserOut');
-	fromuserOut = document.getElementById('fromuserOut');
-	secretOut = document.getElementById('secretOut');
-	hostOut = document.getElementById('hostOut');
-	fromdomainOut = document.getElementById('fromdomainOut');
+	addnumberGenerate = document.getElementById('addnumberGenerate');
+	addnumberAdd = document.getElementById('addnumberAdd');
+	addnumberCopy = document.getElementById('addnumberCopy');
 	
-	fromuserReg = document.getElementById('fromuserReg');
-	secretReg = document.getElementById('secretReg');
-	fromdomainReg = document.getElementById('fromdomainReg');
-	numberReg = document.getElementById('numberReg');
+	phoneInputs = [panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy];
 	
-	addnumber = document.getElementById('addnumber');
+	phoneInputs.forEach(function(el){
+		el.addEventListener('input', input);
+	});
+
 	
-	panelid.addEventListener('input', input);
-	number.addEventListener('input', input);
-	defaultuser.addEventListener('input', input);
-	fromuser.addEventListener('input', input);
-	secret.addEventListener('input', input);
-	host.addEventListener('input', input);
-	fromdomain.addEventListener('input', input);
+	addnumberGenerate.addEventListener('click', function(){generateNumberClick('new');});
+	addnumberAdd.addEventListener('click', function(){generateNumberClick('add');});
+	addnumberCopy.addEventListener('click', function(){copy(out);});
 	
-	addnumber.addEventListener('click', function(){copy(out);});
+	operators = document.getElementById('operators').options;
 	
 	//changelog
 	btnVer = document.getElementById('ver');
@@ -313,50 +310,118 @@ function showMeFilter(id, date){
 // add number
 function input(){
 	let temp = this.value = inputReplace(this.value, 'no_spaces');
-	if (this.id == 'panelid' || this.id == 'number'){
+	if (['panelid','number','port'].includes(this.id)){
 		check(this, 'not_a_num');
 	} else {
 		check(this, 'kirill_and_spec');
 	}
-	if (this.value == ''){
-		this.placeholder = this.id;
-	}
 	switch (this.id){
-		
-		case 'panelid':
-		panelidOut.textContent = temp;
-		break;
-		
-		case 'number':
-		numberOut.textContent = numberReg.textContent = temp;
-		break;
-		
 		case 'defaultuser':
-		defaultuserOut.textContent = temp;
-		if (fromuser.value == ''){ fromuser.placeholder = fromuserOut.textContent = fromuserReg.textContent = temp; }
-		if (fromuser.placeholder == ''){ fromuser.placeholder = 'fromuser'; }
+		if (fromuser.value == ''){ fromuser.placeholder = temp; }
+		if (fromuser.placeholder == ''){ setPlaceholderLikeId(fromuser); }
 		break;
 		
 		case 'fromuser':
-		fromuserOut.textContent = fromuserReg.textContent = temp;
-		if (fromuser.value == '' && defaultuser.value != ''){ fromuser.placeholder = fromuserOut.textContent = fromuserReg.textContent = defaultuser.value; }
-		break;
-		
-		case 'secret':
-		secretOut.textContent = secretReg.textContent = temp;
+		if (fromuser.value == '' && defaultuser.value != ''){ fromuser.placeholder = defaultuser.value; }
 		break;
 		
 		case 'host':
-		hostOut.textContent = temp;
-		if (fromdomain.value == ''){ fromdomain.placeholder = fromdomainOut.textContent = fromdomainReg.textContent = temp; }
-		if (fromdomain.placeholder == ''){ fromdomain.placeholder = 'fromuser'; }
+		host.value = temp = hostReplasingExt(host.value);
+		if (fromdomain.value == ''){ fromdomain.placeholder = temp; }
+		if (fromdomain.placeholder == ''){ setPlaceholderLikeId(fromdomain); }
 		break;
 		
 		case 'fromdomain':
-		fromdomainOut.textContent = fromdomainReg.textContent = temp;
-		if (fromdomain.value == '' && host.value != ''){ fromdomain.placeholder = fromdomainOut.textContent = fromdomainReg.textContent = host.value; }
+		if (fromdomain.value == '' && host.value != ''){ fromdomain.placeholder = host.value; }
 		break;
 	}
+}
+
+function hostReplasingExt(str){
+	let hasInfo = /^~/g;
+	
+	if (hasInfo.test(str)){
+		let additionalInfo = getDataFromList(str);		
+		if (additionalInfo.proxy != null){ outboundproxy.placeholder = additionalInfo.proxy; }
+		if (additionalInfo.port != null){ port.placeholder = additionalInfo.port; }
+		if (additionalInfo.trunk != null){ noReg.checked = true; }
+		return str.replace(hasInfo, '');
+	} else {
+		setPlaceholderLikeId(port);
+		setPlaceholderLikeId(outboundproxy);
+		noReg.checked = false;
+		return str;
+	}
+}
+
+function getDataFromList(str){
+	for (i in operators){
+		if (str == operators[i].value){
+			return {'proxy' : operators[i].getAttribute('proxy'),
+					'port' : operators[i].getAttribute('port'),
+					'trunk' : operators[i].getAttribute('trunk')};
+		}
+	}
+	return {'proxy' : '',
+			'port' : '',
+			'trunk' : ''};
+}
+
+function generateNumberClick(type){
+	if (type == 'new'){
+		generateNumber('new');
+	} else if (type == 'add'){
+		if (tempNumber == ''){
+			generateNumber('new');
+		} else {
+			generateNumber('add');
+		}
+	}
+}
+
+function generateNumber(type){
+	let temp;
+	if (type == 'new'){
+		temp = 'Просьба добавить для: https://panel.binotel.com/?module=pbxNumbersEnhanced&action=edit&companyID=' + panelid.value;
+	}
+	if (type == 'add'){
+		temp = tempNumber;
+	}
+	
+	temp += '\n\nНомер ' + number.value + '\n\n';
+	
+	for (i = 2; i < phoneInputs.length; i++){
+		let tempVal = getValue(phoneInputs[i]);
+		if (tempVal != ''){
+			temp += phoneInputs[i].id + ' = ' + tempVal + '\n';
+		}
+	}
+	
+	if (!noReg.checked){
+		if (getValue(outboundproxy) == '' && getValue(port) == ''){
+			temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + '/' + getValue(number) + '\n';
+		} else if (getValue(outboundproxy) != ''){
+			temp += '\nregister => ' + getValue(fromuser) + '@' + getValue(fromdomain) + ':' + getValue(secret) + ':' + getValue(fromuser) + '@' + getValue(outboundproxy) + '/' + getValue(number) + '\n';
+		} else if (getValue(port) != ''){
+			temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + ':' + getValue(port) + '/' + getValue(number) + '\n';
+		}
+	}
+	
+	out.innerText = tempNumber = temp;
+}
+
+function getValue(elem){
+	if (elem.value != ''){
+		return elem.value;
+	} else if (elem.placeholder != elem.id){
+		return elem.placeholder;
+	} else {
+		return '';
+	}
+}
+
+function setPlaceholderLikeId(elem){
+	elem.placeholder = elem.id;
 }
 
 function check(elem, type){

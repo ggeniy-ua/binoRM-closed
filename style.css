@@ -103,17 +103,20 @@ a:hover {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
+	width: 20ch;
 }
 
 .inputs-container {
 	display: flex;
 	flex-direction: column;
+	width: inherit;
 }
 
 .buttons-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: inherit;
 }
 
 .textarea {
@@ -121,6 +124,7 @@ a:hover {
 	align-items: flex-start;
 	padding: 5px;
 	width: 60ch;
+	height: 50ch;
 	overflow: hidden;
 	font-family: monospace;
 	flex-wrap: wrap;
@@ -207,11 +211,6 @@ textarea {
 
 #phones {
 	height: 19ch;
-	width: 99px;
-}
-
-#outBWlist {
-	height: 35ch;
 }
 
 .ears {
@@ -243,6 +242,6 @@ label {
 	user-select: none;
 }
 
-#host::-webkit-calendar-picker-indicator {
+#host::-webkit-calendar-picker-indicator, input::-webkit-inner-spin-button {
 	display: none !important;
 }

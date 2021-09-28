@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.11.0';
+			var currentVersion = '2.12.0';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -76,51 +76,32 @@
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
 					<div class = "column-container">
 						<div class = "inputs-container">
-							<input id = "panelid" class = "ui-element" type = "text" maxlength = "10" size = "10" autocomplete = "off" placeholder = "PanelID">
-							<input id = "number" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "number">
-							<input id = "defaultuser" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "defaultuser">
-							<input id = "fromuser" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "fromuser">
-							<input id = "secret" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "secret">
-							<input list="operators" id = "host" class = "ui-element" size = "10" autocomplete = "off" placeholder = "host">
-								<datalist id="operators">
-									<option value="sipnet.net">Сипнет</option>
-									<option value="sip.intertelecom.ua">Интертелеком ИТ</option>
-									<option value="217.76.71.17">Теле2 Tele2 регистрация</option>
-									<option value="217.76.78.7">Теле2 Tele2 транк</option>
-									<option value="sip.ukrtel.net">Укртелеком УКТ</option>
+							<input id = "panelid" class = "ui-element" type = "number" maxlength = "10" autocomplete = "off" placeholder = "panelid">
+							<input id = "number" class = "ui-element" type = "text" autocomplete = "off" placeholder = "number">
+							<input id = "defaultuser" class = "ui-element" type = "text" autocomplete = "off" placeholder = "defaultuser">
+							<input id = "fromuser" class = "ui-element" type = "text" autocomplete = "off" placeholder = "fromuser">
+							<input id = "secret" class = "ui-element" type = "text" autocomplete = "off" placeholder = "secret">
+							<input list = "operators" id = "host" class = "ui-element" autocomplete = "off" placeholder = "host">
+								<datalist id = "operators">
+									<option value = "sipnet.net">Сипнет</option>
+									<option value = "sip.intertelecom.ua">Интертелеком ИТ</option>
+									<option value = "217.76.71.17">Теле2 Tele2 регистрация</option>
+									<option value = "~217.76.78.7" trunk = "true">Теле2 Tele2 транк</option>
+									<option value = "sip.ukrtel.net">Укртелеком УКТ</option>
+									<option value = "~sip.ukrtel.net" proxy = "195.5.0.164">Укртелеком УКТ прокси</option>
 								</datalist>
-							<input id = "fromdomain" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "fromdomain">
+							<input id = "fromdomain" class = "ui-element" type = "text" autocomplete = "off" placeholder = "fromdomain">
+							<input id = "port" class = "ui-element" type = "number" autocomplete = "off" placeholder = "port">
+							<input id = "outboundproxy" class = "ui-element" type = "text" autocomplete = "off" placeholder = "outboundproxy">
+							<span><input type = "checkbox" id = "noReg" class = "ui-element" title = "Не генерировать строку регистрации"><label for = "noReg" title = "Не генерировать строку регистрации">Транк</label></span>
 						</div>
 						<div class = "buttons-container">
-							<div  id = "addnumber" class = "button ui-element">Копировать</div>
+							<div  id = "addnumberGenerate" class = "button ui-element">Сгенерировать</div>
+							<div  id = "addnumberAdd" class = "button ui-element">Добавить</div>
+							<div  id = "addnumberCopy" class = "button ui-element">Копировать</div>
 						</div>
 					</div>
-					<div id = "out" class = "textarea">
-						<span>
-							<span>Просьба добавить для: https://panel.binotel.com/?module=pbxNumbersEnhanced&action=edit&companyID=</span><span id = "panelidOut"></span>
-						</span><br/>
-						<span>
-							<span>Номер </span><span id = "numberOut"></span>
-						</span><br/>
-						<span>
-							<span>defaultuser = </span><span id = "defaultuserOut"></span>
-						</span>
-						<span>
-							<span>fromuser = </span><span id = "fromuserOut"></span>
-						</span>
-						<span>
-							<span>secret = </span><span id = "secretOut"></span>
-						</span>
-						<span>
-							<span>host = </span><span id = "hostOut"></span>
-						</span>
-						<span>
-							<span>fromdomain = </span><span id = "fromdomainOut"></span>
-						</span><br/>
-						<span>
-							<span>register => </span><span id = "fromuserReg"></span><span>:</span><span id = "secretReg"></span><span>@</span><span id = "fromdomainReg"></span><span>/</span><span id = "numberReg"></span>
-						</span>
-					</div>
+					<div id = "out" class = "textarea"></div>
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
 				</div>
 				<div class = "space"></div>
