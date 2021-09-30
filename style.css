@@ -18,7 +18,7 @@ header {
 	text-align: center;
 }
 
-h1 {
+h1, h3 {
 	display: inline;
 	font-size: 1.2em;
 }
@@ -26,6 +26,10 @@ h1 {
 h2 {
 	margin: 0;
 	font-size: 1em;
+}
+
+h3 {
+	margin: 0;
 }
 
 #main {
