@@ -109,6 +109,7 @@ window.onload = function(){
 	
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
+	remoteVersionCheck();
 }
 
 // old
@@ -181,6 +182,7 @@ function todayClick(type){
 		return;
 	}
 	showMe(getRMuid(type), ftoday());
+	remoteVersionCheck();
 }
 
 function ftoday(){
@@ -192,6 +194,7 @@ function yesterdayClick(type){
 		return;
 	}
 	showMe(getRMuid(type), fyesterday());
+	remoteVersionCheck();
 }
 
 function fyesterday(){
@@ -202,6 +205,7 @@ function fyesterday(){
 
 function alltimeClick(){
 	showMeAllTime(getRMuid('solo'));
+	remoteVersionCheck();
 }
 
 function uidresetClick(){
@@ -216,6 +220,7 @@ function buttonGoDiapClick(type){
 		return;
 	}
 	showMeDiap(getRMuid(type), from_date.value, to_date.value);
+	remoteVersionCheck();
 }
 
 function monday(){
@@ -270,10 +275,12 @@ function goClick(type){
 		return;
 	}
 	showMe(getRMuid(type), closedDate.value);
+	remoteVersionCheck();
 }
 
 function goFilterClick(){
 	showMeFilter(filters.selectedIndex, closedDate.value);
+	remoteVersionCheck();
 }
 
 function showMeFilter(id, date){
@@ -378,6 +385,7 @@ function generateNumberClick(type){
 		}
 	}
 	check(number, 'not_a_num');
+	remoteVersionCheck();
 }
 
 function generateNumberBase(type){
@@ -714,4 +722,59 @@ function newOrOldFilter(){
 	} else {
 		return 'cf_154';
 	}
+}
+
+async function remoteVersionGet(){
+	let response = await fetch('https://ggeniy-ua.github.io/binoRM-closed/beta/current.ver?ver=' + currentVersion);
+	if (response.ok) {
+		let remote = await response.text();
+		return remote.split('.').map(e => parseInt(e));
+		}
+	return ['0', '0', '0'].map(e => parseInt(e));
+}
+
+async function remoteVersionCheck(){
+	let local = currentVersion.split('.').map(e => parseInt(e));
+	let remote = await remoteVersionGet();
+	if (remote[0] > local[0]){
+		showMessage('major');
+		return;
+	} else if (remote[1] > local[1]){
+		showMessage('minor');
+		return;
+	} else if (remote[2] > local[2]){
+		showMessage('patch');
+		return;
+	} else {
+		return;
+	}
+}
+
+function showMessage(data, color = 'gray'){
+	let msg;
+	switch (data){
+		case 'major':
+		msg = 'Вышло крупное обновление, необходимо обновить страницу, либо пересохранить локальную копию.';
+		color = 'red';
+		break;
+		
+		case 'minor':
+		msg = 'Вышло обновление, добавлены новые функции, необходимо обновить страницу, либо пересохранить локальную копию.';
+		color = 'yellowgreen';
+		break;
+		
+		case 'patch':
+		msg = 'Вышел патч, желательно обновить страницу, либо пересохранить локальную копию.';
+		color = 'limegreen';
+		break;
+		
+		default:
+		msg = data;
+		break;
+	}
+	
+	let inset = document.createElement('h2');
+	inset.innerText = msg;
+	inset.style = 'color: ' + color +';';
+	document.getElementsByTagName('header')[0].append(inset);
 }
