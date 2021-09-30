@@ -452,6 +452,7 @@ function check(elem, type){
 
 function copy(elem){
 	navigator.clipboard.writeText(elem.innerText);
+	remoteVersionCheck();
 }
 
 function showModal(){
@@ -490,6 +491,7 @@ function generateBW(){
 exten => t,n,Return
 exten => i,1,Goto(t,1)
 exten => h,1,Goto(vOfficeIvrAddHangupedCall,s,1)`;
+	remoteVersionCheck();
 }
 
 function colorListEntity(scid, phnum){
@@ -725,7 +727,7 @@ function newOrOldFilter(){
 }
 
 async function remoteVersionGet(){
-	let response = await fetch('https://ggeniy-ua.github.io/binoRM-closed/beta/current.ver?ver=' + currentVersion);
+	let response = await fetch('https://ggeniy-ua.github.io/binoRM-closed/current.ver?t=' + Date.now());
 	if (response.ok) {
 		let remote = await response.text();
 		return remote.split('.').map(e => parseInt(e));
@@ -737,13 +739,13 @@ async function remoteVersionCheck(){
 	let local = currentVersion.split('.').map(e => parseInt(e));
 	let remote = await remoteVersionGet();
 	if (remote[0] > local[0]){
-		showMessage('major');
+		showMessage('update_major');
 		return;
 	} else if (remote[1] > local[1]){
-		showMessage('minor');
+		showMessage('update_minor');
 		return;
 	} else if (remote[2] > local[2]){
-		showMessage('patch');
+		showMessage('update_patch');
 		return;
 	} else {
 		return;
@@ -753,18 +755,30 @@ async function remoteVersionCheck(){
 function showMessage(data, color = 'gray'){
 	let msg;
 	switch (data){
-		case 'major':
-		msg = 'Вышло крупное обновление, необходимо обновить страницу, либо пересохранить локальную копию.';
+		case 'update_major':
+		if (isLocalCopy()){
+			msg = 'Вышло крупное обновление, необходимо пересохранить локальную копию.';
+		} else {
+			msg = 'Вышло крупное обновление, необходимо обновить страницу.';
+		}
 		color = 'red';
 		break;
 		
-		case 'minor':
-		msg = 'Вышло обновление, добавлены новые функции, необходимо обновить страницу, либо пересохранить локальную копию.';
+		case 'update_minor':
+		if (isLocalCopy()){
+			msg = 'Вышло обновление, добавлены новые функции, необходимо пересохранить локальную копию.';
+		} else {
+			msg = 'Вышло обновление, добавлены новые функции, необходимо обновить страницу.';
+		}
 		color = 'yellowgreen';
 		break;
 		
-		case 'patch':
-		msg = 'Вышел патч, желательно обновить страницу, либо пересохранить локальную копию.';
+		case 'update_patch':
+		if (isLocalCopy()){
+			msg = 'Вышел патч, желательно пересохранить локальную копию.';
+		} else {
+			msg = 'Вышел патч, желательно обновить страницу.';
+		}
 		color = 'limegreen';
 		break;
 		
@@ -773,8 +787,21 @@ function showMessage(data, color = 'gray'){
 		break;
 	}
 	
+	let current = document.getElementsByTagName('h2')[0];
+	if (current){
+		current.remove();
+	}
+	
 	let inset = document.createElement('h2');
 	inset.innerText = msg;
 	inset.style = 'color: ' + color +';';
 	document.getElementsByTagName('header')[0].append(inset);
+}
+
+function isLocalCopy(){
+	if (document.location.protocol == 'file:'){
+		return true;
+	} else {
+		return false;
+	}
 }
