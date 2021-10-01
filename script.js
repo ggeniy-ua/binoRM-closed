@@ -405,7 +405,7 @@ function generateNumberBase(type){
 function generateNumberMain(isTrunk){
 	let temp = '';
 	number.value = inputReplace(number.value, 'phone_nums');
-	let arr = number.value.split('\n');
+	let arr = makeArrFromPhones(number.value);
 	arr.forEach(element => {
 		temp += '\n\nНомер ' + element + '\n\n';
 		for (i = 2; i < phoneInputs.length; i++){
@@ -485,7 +485,7 @@ function outerCloseModal(){
 function generateBW(){
 	outBWlist.innerText = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
 	phones.value = inputReplace(phones.value, 'phone_nums');
-	let arr = phones.value.split('\n');
+	let arr = makeArrFromPhones(phones.value);
 	arr.forEach(element => outBWlist.innerText += colorListEntity(idScenario.value, element));
 	outBWlist.innerText += `exten => t,1,Set(ivrRouteID=${idt.value})
 exten => t,n,Return
@@ -804,4 +804,9 @@ function isLocalCopy(){
 	} else {
 		return false;
 	}
+}
+
+function makeArrFromPhones(str){
+	let arr = inputReplace(str, 'phone_nums').split('\n');
+	return [...new Set(arr)];
 }
