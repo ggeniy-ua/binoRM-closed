@@ -732,7 +732,7 @@ async function remoteVersionGet(){
 		let remote = await response.text();
 		return remote.split('.').map(e => parseInt(e));
 		}
-	return ['0', '0', '0'].map(e => parseInt(e));
+	return [0, 0, 0];
 }
 
 async function remoteVersionCheck(){
