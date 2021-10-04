@@ -254,6 +254,8 @@ label {
 	user-select: none;
 }
 
-#host::-webkit-calendar-picker-indicator, input::-webkit-inner-spin-button {
+#host::-webkit-calendar-picker-indicator,
+#dtmfmode::-webkit-calendar-picker-indicator,
+input::-webkit-inner-spin-button {
 	display: none !important;
 }

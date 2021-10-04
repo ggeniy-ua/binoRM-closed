@@ -6,7 +6,6 @@ const teamsDefaultName = 'Добавь команду';
 const teamsDefaultValue = 'Добавь команду';
 
 window.onload = function(){
-	// old
 	closedDate = document.getElementById('closed_date');
 	fromDate = document.getElementById('from_date');
 	toDate = document.getElementById('to_date');
@@ -18,16 +17,12 @@ window.onload = function(){
 	document.getElementById('go').addEventListener('click', function(){goClick('solo');});
 	document.getElementById('godiap').addEventListener('click', function(){buttonGoDiapClick('solo');});
 	document.getElementById('reset').addEventListener('click', uidresetClick);
-	
-	
 	closedDate.valueAsDate = today;
 	fromDate.valueAsDate = monday();
 	toDate.valueAsDate = today;
-	
 	filters = document.getElementById('filters');
 	document.getElementById('gofilter').addEventListener('click', goFilterClick);
 	
-	// add number
 	panelid = document.getElementById('panelid');
 	number = document.getElementById('number');
 	defaultuser = document.getElementById('defaultuser');
@@ -37,50 +32,35 @@ window.onload = function(){
 	fromdomain = document.getElementById('fromdomain');
 	port = document.getElementById('port');
 	outboundproxy = document.getElementById('outboundproxy');
-	
+	dtmfmode = document.getElementById('dtmfmode');
 	noReg = document.getElementById('noReg');
-	
 	out = document.getElementById('out');
-	
 	addnumberGenerate = document.getElementById('addnumberGenerate');
 	addnumberAdd = document.getElementById('addnumberAdd');
 	addnumberCopy = document.getElementById('addnumberCopy');
-	
-	phoneInputs = [panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy];
-	
-	phoneInputs.forEach(function(el){
-		el.addEventListener('input', input);
-	});
-
-	
+	phoneInputs = [panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy, dtmfmode];
+	phoneInputs.forEach(function(el){el.addEventListener('input', input);});	
 	addnumberGenerate.addEventListener('click', function(){generateNumberClick('new');});
 	addnumberAdd.addEventListener('click', function(){generateNumberClick('add');});
 	addnumberCopy.addEventListener('click', function(){copy(out);});
-	
 	operators = document.getElementById('operators').options;
 	
-	//changelog
 	btnVer = document.getElementById('ver');
+	btnVer.innerText = 'ver ' + currentVersion;
 	btnVer.addEventListener('click', showModal);
 	
-	//BW
 	idScenario = document.getElementById('idScenario');
 	idt = document.getElementById('idt');
 	phones = document.getElementById('phones');
 	outBWlist = document.getElementById('outBWlist');
 	idScenario.addEventListener('input', replacingBW);
 	idt.addEventListener('input', replacingBW);
-	
 	document.getElementById('generateBWlist').addEventListener('click', generateBW);
-	document.getElementById('copyBWlist').addEventListener('click', function(){copy(outBWlist);});
-	
-	btnVer.innerText = 'ver ' + currentVersion;
-		
+	document.getElementById('copyBWlist').addEventListener('click', function(){copy(outBWlist);});		
 	
 	window.addEventListener('resize', cons);
 	cons();
 	
-	//boss mode
 	add = document.getElementById('add');
 	edit = document.getElementById('edit');
 	del = document.getElementById('del');
@@ -90,19 +70,15 @@ window.onload = function(){
 	button_yesterday_team = document.getElementById('button_yesterday_team');
 	goTeam = document.getElementById('goTeam');
 	godiapTeam = document.getElementById('godiapTeam');
-	
 	toggleBossMode.addEventListener('click', switchBoss);
 	add.addEventListener('click', addTeam);
 	edit.addEventListener('click', editTeam);
 	del.addEventListener('click', delTeam);
-	
 	button_today_team.addEventListener('click', function(){todayClick('team');});
 	button_yesterday_team.addEventListener('click', function(){yesterdayClick('team');});
 	goTeam.addEventListener('click', function(){goClick('team');});
 	godiapTeam.addEventListener('click', function(){buttonGoDiapClick('team');});
 	teams.addEventListener('change', fillTeamButtons);
-
-	
 	bossElements = document.querySelectorAll('.boss');
 	
 	useOldCf = document.getElementById('useOldCf');
@@ -111,8 +87,6 @@ window.onload = function(){
 	RMuidField.placeholder = getLocalRMuid();
 	remoteVersionCheck();
 }
-
-// old
 
 function checkLocal(){
 	while (!localStorage.localRMuid){
@@ -178,11 +152,11 @@ function getRMuid(type){
 }
 
 function todayClick(type){
+	remoteVersionCheck();
 	if (type == 'team' && checkIsTeamDef()){
 		return;
 	}
 	showMe(getRMuid(type), ftoday());
-	remoteVersionCheck();
 }
 
 function ftoday(){
@@ -190,11 +164,11 @@ function ftoday(){
 }
 
 function yesterdayClick(type){
+	remoteVersionCheck();
 	if (type == 'team' && checkIsTeamDef()){
 		return;
 	}
 	showMe(getRMuid(type), fyesterday());
-	remoteVersionCheck();
 }
 
 function fyesterday(){
@@ -204,11 +178,12 @@ function fyesterday(){
 }
 
 function alltimeClick(){
-	showMeAllTime(getRMuid('solo'));
 	remoteVersionCheck();
+	showMeAllTime(getRMuid('solo'));
 }
 
 function uidresetClick(){
+	remoteVersionCheck();
 	if (confirm('Сбросить настройку логина?')){
 		firtsRun();
 	}
@@ -216,11 +191,11 @@ function uidresetClick(){
 }
 
 function buttonGoDiapClick(type){
+	remoteVersionCheck();
 	if (type == 'team' && checkIsTeamDef()){
 		return;
 	}
 	showMeDiap(getRMuid(type), from_date.value, to_date.value);
-	remoteVersionCheck();
 }
 
 function monday(){
@@ -271,16 +246,16 @@ function showMeAllTime(uid){
 }
 
 function goClick(type){
+	remoteVersionCheck();
 	if (type == 'team' && checkIsTeamDef()){
 		return;
 	}
 	showMe(getRMuid(type), closedDate.value);
-	remoteVersionCheck();
 }
 
 function goFilterClick(){
-	showMeFilter(filters.selectedIndex, closedDate.value);
 	remoteVersionCheck();
+	showMeFilter(filters.selectedIndex, closedDate.value);
 }
 
 function showMeFilter(id, date){
@@ -314,7 +289,6 @@ function showMeFilter(id, date){
 	window.open(url, '_blank');
 }
 
-// add number
 function input(){
 	let temp = this.value = inputReplace(this.value, 'no_spaces');
 	if (['panelid', 'number', 'port'].includes(this.id)){
@@ -375,6 +349,7 @@ function getDataFromList(str){
 }
 
 function generateNumberClick(type){
+	remoteVersionCheck();
 	if (type == 'new'){
 		generateNumberBase('new');
 	} else if (type == 'add'){
@@ -385,7 +360,6 @@ function generateNumberClick(type){
 		}
 	}
 	check(number, 'not_a_num');
-	remoteVersionCheck();
 }
 
 function generateNumberBase(type){
@@ -405,7 +379,7 @@ function generateNumberBase(type){
 function generateNumberMain(isTrunk){
 	let temp = '';
 	number.value = inputReplace(number.value, 'phone_nums');
-	let arr = makeArrFromPhones(number.value);
+	let arr = makeArrFromPhones(number);
 	arr.forEach(element => {
 		temp += '\n\nНомер ' + element + '\n\n';
 		for (i = 2; i < phoneInputs.length; i++){
@@ -451,11 +425,12 @@ function check(elem, type){
 }
 
 function copy(elem){
-	navigator.clipboard.writeText(elem.innerText);
 	remoteVersionCheck();
+	navigator.clipboard.writeText(elem.innerText);
 }
 
 function showModal(){
+	remoteVersionCheck();
 	if (modal){
 		modal.classList.toggle('hidden');
 		window.addEventListener('click', outerCloseModal);
@@ -483,15 +458,15 @@ function outerCloseModal(){
 }
 
 function generateBW(){
+	remoteVersionCheck();
 	outBWlist.innerText = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
 	phones.value = inputReplace(phones.value, 'phone_nums');
-	let arr = makeArrFromPhones(phones.value);
+	let arr = makeArrFromPhones(phones);
 	arr.forEach(element => outBWlist.innerText += colorListEntity(idScenario.value, element));
 	outBWlist.innerText += `exten => t,1,Set(ivrRouteID=${idt.value})
 exten => t,n,Return
 exten => i,1,Goto(t,1)
 exten => h,1,Goto(vOfficeIvrAddHangupedCall,s,1)`;
-	remoteVersionCheck();
 }
 
 function colorListEntity(scid, phnum){
@@ -732,7 +707,7 @@ async function remoteVersionGet(){
 		let remote = await response.text();
 		return remote.split('.').map(e => parseInt(e));
 		}
-	return ['0', '0', '0'].map(e => parseInt(e));
+	return [0, 0, 0];
 }
 
 async function remoteVersionCheck(){
@@ -756,29 +731,20 @@ function showMessage(data, color = 'gray'){
 	let msg;
 	switch (data){
 		case 'update_major':
-		if (isLocalCopy()){
-			msg = 'Вышло крупное обновление, необходимо пересохранить локальную копию.';
-		} else {
-			msg = 'Вышло крупное обновление, необходимо обновить страницу.';
-		}
+		msg = 'Вышло крупное обновление, необходимо ';
+		msg += isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.';
 		color = 'red';
 		break;
 		
 		case 'update_minor':
-		if (isLocalCopy()){
-			msg = 'Вышло обновление, добавлены новые функции, необходимо пересохранить локальную копию.';
-		} else {
-			msg = 'Вышло обновление, добавлены новые функции, необходимо обновить страницу.';
-		}
+		msg = 'Вышло обновление, добавлены новые функции, необходимо ';
+		msg += isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.';
 		color = 'yellowgreen';
 		break;
 		
 		case 'update_patch':
-		if (isLocalCopy()){
-			msg = 'Вышел патч, желательно пересохранить локальную копию.';
-		} else {
-			msg = 'Вышел патч, желательно обновить страницу.';
-		}
+		msg = 'Вышел патч, желательно ';
+		msg += isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.';
 		color = 'limegreen';
 		break;
 		
@@ -806,7 +772,9 @@ function isLocalCopy(){
 	}
 }
 
-function makeArrFromPhones(str){
-	let arr = inputReplace(str, 'phone_nums').split('\n');
-	return [...new Set(arr)];
+function makeArrFromPhones(elem){
+	let arr = inputReplace(elem.value, 'phone_nums').split('\n');
+	let out = [...new Set(arr)];
+	elem.value = out.toString().replace(/,/g, '\n');
+	return out;
 }

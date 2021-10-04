@@ -12,10 +12,9 @@
 
 .description {
 	text-indent: 10px;
-	color: grey;
+	color: darkslategrey;
 }
 
 .important {
 	font-weight: bold;
-	color: black;
 }

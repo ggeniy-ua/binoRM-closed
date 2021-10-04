@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			var currentVersion = '2.13.5';
+			var currentVersion = '2.14.0';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -93,6 +93,13 @@
 							<input id = "fromdomain" class = "ui-element" type = "text" autocomplete = "off" placeholder = "fromdomain">
 							<input id = "port" class = "ui-element" type = "number" autocomplete = "off" placeholder = "port">
 							<input id = "outboundproxy" class = "ui-element" type = "text" autocomplete = "off" placeholder = "outboundproxy">
+							<input list = "dtmf-types" id = "dtmfmode" class = "ui-element" autocomplete = "off" placeholder = "dtmfmode">
+								<datalist id = "dtmf-types">
+									<option value = "inband"/>
+									<option value = "rfc2833"/>
+									<option value = "info"/>
+									<option value = "auto"/>
+								</datalist>
 							<span><input type = "checkbox" id = "noReg" class = "ui-element" title = "Не генерировать строку регистрации"><label for = "noReg" title = "Не генерировать строку регистрации">Транк</label></span>
 						</div>
 						<div class = "buttons-container">
