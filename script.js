@@ -142,12 +142,9 @@ function getRMuid(type){
 		}else{
 			return [RMuidFromInput];
 		}
-		break;
 		
 		case 'team':
-		let uids = teams.options[teams.selectedIndex].value.split(', ');
-		return uids;
-		break;
+		return teams.options[teams.selectedIndex].value.split(', ');
 	}
 }
 
@@ -470,10 +467,9 @@ exten => h,1,Goto(vOfficeIvrAddHangupedCall,s,1)`;
 }
 
 function colorListEntity(scid, phnum){
-	let result = `exten => _${phnum},1,Set(ivrRouteID=${scid})
+	return `exten => _${phnum},1,Set(ivrRouteID=${scid})
 exten => _${phnum},n,Return
 `;
-	return result;
 }
 
 function versionCheck(){
@@ -487,11 +483,7 @@ function versionCheck(){
 	if (parseInt(current[0], 10) > parseInt(stored[0], 10)){
 		return false;
 	} else {
-		if (parseInt(current[1], 10) > parseInt(stored[1], 10)){
-			return false;
-		} else {
-			return true;
-		}
+		return parseInt(current[1], 10) <= parseInt(stored[1], 10);
 	}
 }
 
@@ -522,24 +514,20 @@ function checkInputs(str, type){
 function inputReplace(str, type){
 	switch (type){
 		case 'no_spaces':
-		str = str.replace(/[\f\t\v​\u00A0\u1680​\u180e\u2000​\u2001\u2002​\u2003\u2004​\u2005\u2006​\u2007\u2008​\u2009\u200a​\u2028\u2029​\u2028\u2029​\u202f\u205f​\u3000\u0020]/g, '');
+		str = str.replace(/[\f\t\v​\u00A0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\u0020]/g, '');
 		return str;
-		break;
 		
 		case 'rm_uid':
 		str = str.replace(/[^a-z0-9]/gi, '').substring(0, 4).toUpperCase();
 		return str;
-		break;
 		
 		case 'numbers':
 		str = str.replace(/[\D]+/g, '');
 		return str;
-		break;
 		
 		case 'phone_nums':
 		str = str.replace(/[ ()-]+/g, '').replace(/[^+_\d]+/g, '\n').replace(/^\n+|\n+$/gm, '');
 		return str;
-		break;
 	}
 }
 
@@ -565,7 +553,7 @@ function addTeam(){
 		return;
 	}
 	
-	editStoredTeams(teams.options.length+1, [tempData.innerText, tempData.value]);
+	editStoredTeams(teams.options.length + 1, [tempData.innerText, tempData.value]);
 	
 	if (teams.options[0].value == teamsDefaultValue){
 		teams.remove(0);
@@ -634,11 +622,8 @@ function editAndAddDialog(id = -1){
 		temp[i] = inputReplace(temp[i], 'rm_uid');
 	}
 	tempValue = temp.join(', ');
-	
-	let newOption = new Option(tempName, tempValue);
-	
-	
-	return newOption;
+
+	return new Option(tempName, tempValue);
 }
 
 function createTeamsFromLocal(){
@@ -649,9 +634,7 @@ function createTeamsFromLocal(){
 }
 
 function defteam(){
-	let defName = teamsDefaultName;
-	let defValue = teamsDefaultValue;
-	let defOption = new Option(defName, defValue);
+	let defOption = new Option(teamsDefaultName, teamsDefaultValue);
 	defOption.selected = defOption.disabled = defOption.hidden = true;
 	return defOption;
 }
@@ -674,11 +657,7 @@ function editStoredTeams(id, newTeam = null){
 
 function checkIsTeamDef(){
 	let selected = teams.selectedIndex;
-	if (teams.options[selected].value == teamsDefaultValue){
-		return true;
-	} else {
-		return false;
-	}
+	return teams.options[selected].value == teamsDefaultValue;
 }
 
 function fillTeamButtons(){
@@ -690,7 +669,7 @@ function fillTeamButtons(){
 		button_yesterday_team.innerText = 'Вчера по "' + team + '"';
 		goTeam.innerText = godiapTeam.innerText = '"' + team + '"';
 	}
-	return;
+
 }
 
 function newOrOldFilter(){
@@ -715,15 +694,10 @@ async function remoteVersionCheck(){
 	let remote = await remoteVersionGet();
 	if (remote[0] > local[0]){
 		showMessage('update_major');
-		return;
 	} else if (remote[1] > local[1]){
 		showMessage('update_minor');
-		return;
 	} else if (remote[2] > local[2]){
 		showMessage('update_patch');
-		return;
-	} else {
-		return;
 	}
 }
 
@@ -760,16 +734,12 @@ function showMessage(data, color = 'gray'){
 	
 	let inset = document.createElement('h2');
 	inset.innerText = msg;
-	inset.style = 'color: ' + color +';';
+	inset.style = 'color: ' + color + ';';
 	document.getElementsByTagName('header')[0].append(inset);
 }
 
 function isLocalCopy(){
-	if (document.location.protocol == 'file:'){
-		return true;
-	} else {
-		return false;
-	}
+	return document.location.protocol == 'file:';
 }
 
 function makeArrFromPhones(elem){
