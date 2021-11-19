@@ -54,7 +54,6 @@ window.onload = function(){
 	idt.addEventListener('input', replacingBW);
 	document.getElementById('generateBWlist').addEventListener('click', generateBW);
 	document.getElementById('copyBWlist').addEventListener('click', function(){copy(outBWlist);});		
-	
 	window.addEventListener('resize', cons);
 	cons();
 	add = document.getElementById('add');
@@ -77,7 +76,6 @@ window.onload = function(){
 	teams.addEventListener('change', fillTeamButtons);
 	bossElements = document.querySelectorAll('.boss');
 	useOldCf = document.getElementById('useOldCf');
-	
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
 	remoteVersionCheck();
@@ -336,9 +334,7 @@ function generateNumberBase(type){
 	if (type === 'add'){
 		temp = tempNumber;
 	}
-	
 	temp += generateNumberMain(noReg.checked);
-	
 	out.innerText = tempNumber = temp;
 }
 function generateNumberMain(isTrunk){
@@ -353,7 +349,6 @@ function generateNumberMain(isTrunk){
 				temp += phoneInputs[i].id + ' = ' + tempVal + '\n';
 			}
 		}
-		
 		if (!isTrunk){
 			if (getValue(outboundproxy) == '' && getValue(port) == ''){
 				temp += '\nregister => ' + getValue(fromuser) + ':' + getValue(secret) + '@' + getValue(fromdomain) + '/' + element + '\n';
@@ -434,10 +429,8 @@ function versionCheck(){
 	if (!localStorage.lastVer){
 		return false;
 	}
-	
 	let stored = localStorage.lastVer.split('.');
 	let current = currentVersion.split('.');
-	
 	if (parseInt(current[0], 10) > parseInt(stored[0], 10)){
 		return false;
 	} else {
@@ -504,9 +497,7 @@ function addTeam(){
 	if (tempData.innerText == 'null' || tempData.value == 'null'){
 		return;
 	}
-	
 	editStoredTeams(teams.options.length + 1, [tempData.innerText, tempData.value]);
-	
 	if (teams.options[0].value == teamsDefaultValue){
 		teams.remove(0);
 	}
@@ -518,15 +509,11 @@ function editTeam(){
 	if (checkIsTeamDef()){
 		return;
 	}
-	
 	let tempData = editAndAddDialog(selected);
-	
 	if (tempData.value == 'null' || tempData.innerText == 'null'){
 		return;
 	}
-	
 	editStoredTeams(selected, [tempData.innerText,tempData.value]);
-	
 	teams.options[selected].innerText = tempData.innerText;
 	teams.options[selected].value = tempData.value;
 	fillTeamButtons();
@@ -553,7 +540,6 @@ function editAndAddDialog(id = -1){
 		tempName = teams.selectedOptions[0].innerText;
 		tempValue = teams.selectedOptions[0].value;
 	}
-	
 	do {
 		tempName = prompt('Название', tempName);
 		if (tempName == null){
@@ -564,8 +550,6 @@ function editAndAddDialog(id = -1){
 			return new Option(null, null);
 		}
 	} while (tempName == '' || tempValue == '');
-	
-	
 	let temp = tempValue.replace(/[^a-z0-9]+/gi, ' ').replace(/^\s+/, '').split(' ');
 	for (i in temp){
 		temp[i] = inputReplace(temp[i], 'rm_uid');
