@@ -60,12 +60,12 @@ footer {
 
 a:link { 
 	text-decoration: none;
-	color: red;
+	color: crimson;
 }
 
 a:visited {
 	text-decoration: none;
-	color: gray;
+	color: dimgray;
 }
 
 a:hover {
