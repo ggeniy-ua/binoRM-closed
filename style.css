@@ -76,7 +76,7 @@ a:hover {
 	font-size: xx-small;
 }
 
-.button {
+div[role = button] {
 	display: inline-flex;
 	background: #b7b7b7;
 	padding: 3px;
@@ -84,10 +84,10 @@ a:hover {
 	box-shadow: 1px 1px 0 0 #000;
 	user-select: none;
 }
-.button:hover {
+div[role = button]:hover {
 	opacity: 0.9;
 }
-.button:active, .pressed {
+div[role = button]:active, div[role = button].pressed {
 	box-shadow: inset 1px 1px 0 0 #000;
 }
 
