@@ -28,7 +28,7 @@
 			<div>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
-					<input type = "checkbox" id = "useOldCf" class = "ui-element" title = "Использовать поиск по OLD КТО"><label for = "useOldCf" title = "Использовать поиск по OLD КТО">Старый фильтр</label>
+					<label title = "Использовать поиск по OLD КТО"><input type = "checkbox" id = "useOldCf" class = "ui-element">Старый фильтр</label>
 				</div>
 				<div  class = "formrow">
 					<div  id = "button_today" role = "button" class = "ui-element">Сегодня</div>
@@ -37,7 +37,7 @@
 				</div>
 				<div class = "space boss hidden"></div>
 				<div  class = "formrow boss hidden">
-					<span id = "add" role = "button" class = "ui-element" title = "Добавить">➕</span><span id = "edit" role = "button" class = "ui-element" title = "Редактировать">✎</span><span id = "del" role = "button" class = "ui-element" title = "Удалить">🗑</span>
+					<div id = "add" role = "button" class = "ui-element" title = "Добавить">➕</div><div id = "edit" role = "button" class = "ui-element" title = "Редактировать">✎</div><div id = "del" role = "button" class = "ui-element" title = "Удалить">🗑</div>
 					<select id = "teams" class = "ui-element">
 					</select>
 				</div>
@@ -47,7 +47,7 @@
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">
-					<input id = "closed_date" type = "date" class = "ui-element">
+					<label title = "За дату">За&nbsp;<input id = "closed_date" type = "date" class = "ui-element"></label>
 					<div id = "go" role = "button" class = "ui-element">Свои задачи</div>
 					<div id = "goTeam" role = "button" class = "ui-element boss hidden">(team)</div>
 				</div>
@@ -65,7 +65,7 @@
 				</div>
 				<div class = "space"></div>
 				<div  class = "formrow">
-					С <input id = "from_date" type = "date" class = "ui-element"> по <input id = "to_date" type = "date" class = "ui-element">
+					<label title = "Дата с">С&nbsp;<input id = "from_date" type = "date" class = "ui-element"></label><label title = "Дата по">&nbsp;по&nbsp;<input id = "to_date" type = "date" class = "ui-element"></label>
 				</div>
 				<div  class = "formrow">
 					<div id = "godiap" role = "button" class = "ui-element">Свои задачи</div>
@@ -101,7 +101,7 @@
 									<option value = "info"></option>
 									<option value = "auto"></option>
 								</datalist>
-							<span><input type = "checkbox" id = "noReg" class = "ui-element" title = "Не генерировать строку регистрации"><label for = "noReg" title = "Не генерировать строку регистрации">Транк</label></span>
+							<label title = "Не генерировать строку регистрации"><input type = "checkbox" id = "noReg" class = "ui-element">Транк</label>
 						</div>
 						<div class = "buttons-container">
 							<div  id = "addnumberGenerate" role = "button" class = "ui-element">Сгенерировать</div>
