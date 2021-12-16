@@ -393,7 +393,7 @@ function showModal(){
 		modal = document.createElement('div');
 		modal.id = 'modal';
 		modal.classList.add('hidden');
-		modal.innerHTML = '<div class="modal-ver"><div id="verHeader"><h1>История изменений:</h1><span id="close">×</span></div><iframe id="versions" class="ui-element" src="changelog.html?ver=' + currentVersion + '"></iframe></div>';
+		modal.innerHTML = '<div class="modal-ver"><div id="verHeader"><h1>История изменений<a href="changelog.html" target="_blank">🔗</a>:</h1><span id="close">×</span></div><iframe id="versions" class="ui-element" src="changelog.html?ver=' + currentVersion + '"></iframe></div>';
 		document.getElementsByTagName('body')[0].append(modal);
 		btnCloseModal = document.getElementById('close');
 		btnCloseModal.addEventListener('click', closeModal);
