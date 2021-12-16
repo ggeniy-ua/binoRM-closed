@@ -653,7 +653,6 @@ function showMessage(data, color = 'gray'){
 	if (current){
 		current.remove();
 	}
-	
 	let inset = document.createElement('h2');
 	inset.innerText = msg;
 	inset.style.cssText = `color: ${color};`;
