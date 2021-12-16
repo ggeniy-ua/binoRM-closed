@@ -63,6 +63,7 @@ a:hover {
 	font-size: xx-small;
 }
 div[role = button] {
+	display: inline-flex;
 	background: #b7b7b7;
 	padding: 3px;
 	cursor: pointer;
