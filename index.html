@@ -28,7 +28,7 @@
 			<div>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
-					<input type = "checkbox" id = "useOldCf" class = "ui-element">
+					<input type = "checkbox" id = "useOldCf">
 					<label for = "useOldCf" title = "Использовать поиск по OLD КТО" role = "button" class = "ui-element">Старый фильтр</label>
 				</div>
 				<div  class = "formrow">
@@ -102,7 +102,7 @@
 									<option value = "info"></option>
 									<option value = "auto"></option>
 								</datalist>
-							<input type = "checkbox" id = "noReg" class = "ui-element">
+							<input type = "checkbox" id = "noReg">
 							<label for = "noReg" title = "Не генерировать строку регистрации" role = "button" class = "ui-element">Транк</label>
 						</div>
 						<div class = "buttons-container">
@@ -134,7 +134,8 @@
 		</div>
 		<footer>
 			<div class = "l-footer">
-				<div id = "toggleBossMode" role = "button" class = "button-small ui-element">Режим начальника</div>
+				<input type = "checkbox" id = "toggleBossMode">
+				<label for = "toggleBossMode" title = "Использовать поиск по OLD КТО" role = "button" class = "button-small ui-element">Режим начальника</label>
 				<div id = "reset" role = "button" class = "button-small ui-element">Сбросить логин</div>
 			</div>
 			<div class = "c-footer">
