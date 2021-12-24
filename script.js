@@ -482,13 +482,16 @@ function switchBoss(){
 		let t = bossElements[i].classList;
 		t.toggle('hidden');
 	}
-	toggleBossMode.classList.toggle('pressed');
 	if (this.toString() != '[object Window]'){
 		if (localStorage.iAmBoss == 'true'){
 			localStorage.iAmBoss = 'false';
+			toggleBossMode.checked = false;
 		} else {
 			localStorage.iAmBoss = 'true';
+			toggleBossMode.checked = true;
 		}
+	} else {
+		toggleBossMode.checked = true;
 	}
 }
 function addTeam(){

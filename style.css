@@ -62,18 +62,19 @@ a:hover {
 .button-small {
 	font-size: xx-small;
 }
-div[role = button] {
+[role = button] {
 	background: #b7b7b7;
 	padding: 3px;
 	cursor: pointer;
-	box-shadow: 1px 1px 0 0 #000;
+	box-shadow: 2px 2px 0 0 #000;
 	user-select: none;
+	width: fit-content;
 }
-div[role = button]:hover {
+[role = button]:hover {
 	opacity: 0.9;
 }
-div[role = button]:active, div[role = button].pressed {
-	box-shadow: inset 1px 1px 0 0 #000;
+[role = button]:active, input[type=checkbox]:checked+label {
+	box-shadow: inset 2px 2px 0 0 #000;
 }
 .ui-element {
 	border-radius: 7px;
@@ -210,11 +211,13 @@ textarea {
 	align-items: flex-end;
 	justify-content: flex-end;
 }
-label {
-	user-select: none;
-}
 #host::-webkit-calendar-picker-indicator,
 #dtmfmode::-webkit-calendar-picker-indicator,
 input::-webkit-inner-spin-button {
 	display: none !important;
+}
+input[type=checkbox] {
+	height: 0;
+	width: 0;
+	display: none;
 }
