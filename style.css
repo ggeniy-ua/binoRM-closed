@@ -73,7 +73,7 @@ a:hover {
 [role = button]:hover {
 	opacity: 0.9;
 }
-[role = button]:active, [role = button].pressed, input[type=checkbox]:checked+label {
+[role = button]:active, input[type=checkbox]:checked+label {
 	box-shadow: inset 2px 2px 0 0 #000;
 }
 .ui-element {
