@@ -3,8 +3,7 @@ html {
 	margin: 0;
 }
 body {
-	min-height: max-content;
-	min-width: max-content;
+	min-height: 100%;
 	margin: 0;
 	display: flex;
 	flex-direction: column;
@@ -46,7 +45,6 @@ h3 {
 footer {
 	width: 95vw;
 	margin-top: 15vh;
-	margin-bottom: 1vh;
 	display: flex;
 	justify-content: space-between;
 }
