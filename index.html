@@ -10,7 +10,7 @@
 		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			const currentVersion = '2.14.6';
+			const currentVersion = '2.15.0';
 			makeStyleAndScript();
 			function makeStyleAndScript(){
 				let title = document.getElementsByTagName('title')[0];
@@ -96,7 +96,7 @@
 									<option value = "sipnet.net">Сипнет</option>
 									<option value = "sip.intertelecom.ua">Интертелеком ИТ</option>
 									<option value = "217.76.71.17">Теле2 Tele2 регистрация</option>
-									<option value = "~217.76.78.7" trunk = "true">Теле2 Tele2 транк</option>
+									<option value = "~217.76.78.7" trunk = "true" fromuserasnum = "true">Теле2 Tele2 транк</option>
 									<option value = "sip.ukrtel.net">Укртелеком УКТ</option>
 									<option value = "~sip.ukrtel.net" proxy = "195.5.0.164">Укртелеком УКТ прокси</option>
 								</datalist>
@@ -112,6 +112,8 @@
 								</datalist>
 							<input type = "checkbox" id = "noReg">
 							<label for = "noReg" title = "Не генерировать строку регистрации" role = "button" class = "ui-element">Транк</label>
+							<input type = "checkbox" id = "fromuserasnum">
+							<label for = "fromuserasnum" title = "Установить fromuser как номер" role = "button" class = "ui-element">fromuser как номер</label>
 						</div>
 						<div class = "buttons-container">
 							<div  id = "addnumberGenerate" role = "button" class = "ui-element">Сгенерировать</div>

@@ -293,11 +293,13 @@ function hostReplasingExt(str){
 		if (additionalInfo.proxy != null){ outboundproxy.placeholder = additionalInfo.proxy; }
 		if (additionalInfo.port != null){ port.placeholder = additionalInfo.port; }
 		if (additionalInfo.trunk != null){ noReg.checked = true; }
+		if (additionalInfo.fromuserasnum != null){ fromuserasnum.checked = true; }
 		return str.replace(hasInfo, '');
 	} else {
 		setPlaceholderLikeId(port);
 		setPlaceholderLikeId(outboundproxy);
 		noReg.checked = false;
+		fromuserasnum.checked = false;
 		return str;
 	}
 }
@@ -306,12 +308,14 @@ function getDataFromList(str){
 		if (str == operators[i].value){
 			return {'proxy' : operators[i].getAttribute('proxy'),
 					'port' : operators[i].getAttribute('port'),
-					'trunk' : operators[i].getAttribute('trunk')};
+					'trunk' : operators[i].getAttribute('trunk'),
+					'fromuserasnum' : operators[i].getAttribute('fromuserasnum')};
 		}
 	}
 	return {'proxy' : '',
 			'port' : '',
-			'trunk' : ''};
+			'trunk' : '',
+			'fromuserasnum' : ''};
 }
 function generateNumberClick(type){
 	remoteVersionCheck();
@@ -334,19 +338,24 @@ function generateNumberBase(type){
 	if (type === 'add'){
 		temp = tempNumber;
 	}
-	temp += generateNumberMain(noReg.checked);
+	temp += generateNumberMain(noReg.checked, fromuserasnum.checked);
 	out.innerText = tempNumber = temp;
 }
-function generateNumberMain(isTrunk){
+function generateNumberMain(isTrunk, fromuserasnum){
 	let temp = '';
 	number.value = inputReplace(number.value, 'phone_nums');
 	let arr = makeArrFromPhones(number);
 	arr.forEach(element => {
 		temp += '\n\nНомер ' + element + '\n\n';
 		for (i = 2; i < phoneInputs.length; i++){
-			let tempVal = getValue(phoneInputs[i]);
-			if (tempVal != ''){
-				temp += phoneInputs[i].id + ' = ' + tempVal + '\n';
+			let phid = phoneInputs[i].id;
+			if (phid == 'fromuser' && fromuserasnum){
+				temp += phid + ' = ' + element + '\n';
+			} else {
+				let tempVal = getValue(phoneInputs[i]);
+				if (tempVal != ''){
+					temp += phid + ' = ' + tempVal + '\n';
+				}
 			}
 		}
 		if (!isTrunk){
