@@ -13,13 +13,14 @@ body {
 }
 header {
 	margin: 5px 5px 10px;
-	text-align: center;
+	display: grid;
+	justify-items: center;
 }
 h1, h3 {
 	display: inline;
 	font-size: 1.2em;
 }
-h2 {
+#version, #message {
 	margin: 0;
 	font-size: 1em;
 	text-shadow: 0 0 20px darkred;

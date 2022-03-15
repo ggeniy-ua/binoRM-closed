@@ -78,7 +78,7 @@ window.onload = function(){
 	useOldCf = document.getElementById('useOldCf');
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
-	remoteVersionCheck();
+	remoteCheck();
 }
 function checkLocal(){
 	while (!localStorage.localRMuid){
@@ -136,7 +136,7 @@ function getRMuid(type){
 	}
 }
 function todayClick(type){
-	remoteVersionCheck();
+	remoteCheck();
 	if (type === 'team' && checkIsTeamDef()){
 		return;
 	}
@@ -146,7 +146,7 @@ function ftoday(){
 	return today.toISOString().substr(0,10);
 }
 function yesterdayClick(type){
-	remoteVersionCheck();
+	remoteCheck();
 	if (type === 'team' && checkIsTeamDef()){
 		return;
 	}
@@ -158,18 +158,18 @@ function fyesterday(){
 	return date.toISOString().substr(0,10);
 }
 function alltimeClick(){
-	remoteVersionCheck();
+	remoteCheck();
 	showMeAllTime(getRMuid('solo'));
 }
 function uidresetClick(){
-	remoteVersionCheck();
+	remoteCheck();
 	if (confirm('Сбросить настройку логина?')){
 		firtsRun();
 	}
 	RMuidField.placeholder = getLocalRMuid();
 }
 function buttonGoDiapClick(type){
-	remoteVersionCheck();
+	remoteCheck();
 	if (type === 'team' && checkIsTeamDef()){
 		return;
 	}
@@ -217,14 +217,14 @@ function showMeAllTime(uid){
 	window.open(url, '_blank');
 }
 function goClick(type){
-	remoteVersionCheck();
+	remoteCheck();
 	if (type === 'team' && checkIsTeamDef()){
 		return;
 	}
 	showMe(getRMuid(type), closedDate.value);
 }
 function goFilterClick(){
-	remoteVersionCheck();
+	remoteCheck();
 	showMeFilter(filters.selectedIndex, closedDate.value);
 }
 function showMeFilter(id, date){
@@ -318,7 +318,7 @@ function getDataFromList(str){
 			'fromuserasnum' : ''};
 }
 function generateNumberClick(type){
-	remoteVersionCheck();
+	remoteCheck();
 	if (type === 'new'){
 		generateNumberBase('new');
 	} else if (type === 'add'){
@@ -390,11 +390,11 @@ function check(elem, type){
 	}
 }
 function copy(elem){
-	remoteVersionCheck();
+	remoteCheck();
 	navigator.clipboard.writeText(elem.innerText);
 }
 function showModal(){
-	remoteVersionCheck();
+	remoteCheck();
 	if (modal){
 		modal.classList.toggle('hidden');
 		window.addEventListener('click', outerCloseModal);
@@ -419,7 +419,7 @@ function outerCloseModal(){
 	}
 }
 function generateBW(){
-	remoteVersionCheck();
+	remoteCheck();
 	outBWlist.innerText = 'exten => s,1,Goto(${CALLERID(num)},1)\n';
 	phones.value = inputReplace(phones.value, 'phone_nums');
 	let arr = makeArrFromPhones(phones);
@@ -624,6 +624,10 @@ async function remoteVersionGet(){
 		}
 	return [0, 0, 0];
 }
+async function remoteCheck(){
+	remoteVersionCheck();
+	remoteMessageGet();
+}
 async function remoteVersionCheck(){
 	let local = currentVersion.split('.').map(e => parseInt(e));
 	let remote = await remoteVersionGet();
@@ -635,8 +639,17 @@ async function remoteVersionCheck(){
 		showMessage('update_patch');
 	}
 }
+async function remoteMessageGet(){
+	let response = await fetch('https://raw.githubusercontent.com/ggeniy-ua/external/main/binoMessage');
+	if (response.ok) {
+		let remote = await response.text();
+		let arr = remote.split('\n');
+		showMessage(arr[0],arr[1]);
+		}
+}
 function showMessage(data, color = 'gray'){
 	let msg;
+	let isver = true;
 	switch (data){
 		case 'update_major':
 		msg = 'Вышло крупное обновление, необходимо ';
@@ -658,14 +671,16 @@ function showMessage(data, color = 'gray'){
 		
 		default:
 		msg = data;
+		isver = false;
 		break;
 	}
 	
-	let current = document.getElementsByTagName('h2')[0];
+	let current = document.getElementById(isver ? 'version' : 'message');
 	if (current){
 		current.remove();
 	}
-	let inset = document.createElement('h2');
+	let inset = document.createElement('span');
+	inset.setAttribute('id', isver ? 'version' : 'message');
 	inset.innerText = msg;
 	inset.style.cssText = `color: ${color};`;
 	document.getElementsByTagName('header')[0].append(inset);
