@@ -12,37 +12,31 @@ body {
 	justify-content: space-between;
 }
 header {
-	margin: 5px 5px 10px;
+	margin: 0.75vw 0.75vw 0.75vw;
 	display: grid;
 	justify-items: center;
 }
-h1, h3 {
+h1, #close {
 	display: inline;
-	font-size: 1.2em;
+	font-size: 3vw;
+	margin: 0.01em;
 }
 #version, #message {
 	margin: 0;
-	font-size: 1em;
-	text-shadow: 0 0 20px darkred;
-}
-h3 {
-	margin: 0;
+	font-size: 2.25vw;
+	text-shadow: 0 0 3vw darkred;
 }
 #main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
-.space {
-	display: block;
-	flex: 1;
-	height: 15px;
-}
 .formrow {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 0.75vw;
 }
 footer {
 	width: 95vw;
@@ -50,6 +44,7 @@ footer {
 	margin-bottom: 1vh;
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-end;
 }
 a:link { 
 	text-decoration: none;
@@ -62,29 +57,32 @@ a:visited {
 a:hover {
 	text-decoration: underline;
 }
-.button-small {
-	font-size: xx-small;
-}
 [role = button] {
 	background: #b7b7b7;
-	padding: 3px;
+	margin: 0.225vw;
+	padding: 0.15vw;
 	cursor: pointer;
-	box-shadow: 2px 2px 0 0 #000;
+	box-shadow: 0.15vw 0.15vw 0 0 #000;
 	user-select: none;
 	width: fit-content;
+	border-radius: 0.5vw;
+	border-style: solid;
+	border-width: 0.05vw;
+	text-align: center;
 }
 [role = button]:hover {
 	opacity: 0.9;
 }
 [role = button]:active, input[type=checkbox]:checked+label {
-	box-shadow: inset 2px 2px 0 0 #000;
+	box-shadow: inset 0.15vw 0.15vw 0 0 #000;
 }
 .ui-element {
-	border-radius: 7px;
+	border-radius: 0.5vw;
 	border-style: solid;
-	border-width: thin;
+	border-width: 0.05vw;
 	text-align: center;
-	margin: 2px;
+	margin: 0.225vw;
+	font-size: 1.2vw;
 }
 .ui-element:focus-visible {
 	outline: none;
@@ -114,7 +112,7 @@ a:hover {
 .textarea {
 	display: flex;
 	align-items: flex-start;
-	padding: 5px;
+	padding: 0.375vw;
 	width: 60ch;
 	height: 60ch;
 	overflow-x: hidden;
@@ -122,11 +120,11 @@ a:hover {
 	font-family: monospace;
 	flex-wrap: wrap;
 	flex-direction: column;
-	border-radius: 7px;
+	border-radius: 0.5vw;
 	border-style: solid;
-	border-width: thin;
+	border-width: 0.05vw;
 	border-color: #767676;
-	margin: 2px;
+	margin: 0.225vw;
 	text-align: left;
 }
 textarea {
@@ -134,11 +132,8 @@ textarea {
 }
 .err {
 	border: thin solid red;
-	border-radius: 5px;
-	padding: 2px;
 }
 #ver {
-	font-size: 90%;
 	font-family: monospace;
 	cursor: pointer;
 	user-select: none;
@@ -160,16 +155,15 @@ textarea {
 	flex-direction: column;
 	align-items: flex-end;
 	background-color: #fff;
-	padding: 10px;
+	padding: 0.75vw;
 	margin: 10%;
 	height: 70%;
-	border-radius: 7px;
+	border-radius: 0.5vw;
 	border-style: solid;
-	border-width: thin;
+	border-width: 0.05vw;
 	
 }
 #close {
-	font-size: 28px;
 	font-weight: bold;
 }
 #close:hover {
@@ -223,4 +217,19 @@ input[type=checkbox] {
 	height: 0;
 	width: 0;
 	display: none;
+}
+fieldset {
+	padding: 0.75vw;
+	margin-bottom: 1.5vw;
+	width: max-content;
+    height: max-content;
+	border-radius: 0.5vw;
+	border-style: solid;
+	border-width: 0.05vw;
+	font-size: 1.2vw;
+}
+legend {
+	text-align: left;
+	font-size: 1.5vw;
+	user-select: none;
 }
