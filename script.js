@@ -644,36 +644,38 @@ async function remoteMessageGet(){
 	if (response.ok) {
 		let remote = await response.text();
 		let arr = remote.split('\n');
-		showMessage(arr[0],arr[1]);
+		if (arr[0]) {
+			showMessage(arr[0],arr[1]);
+		} else {
+			return;
 		}
+	}
 }
 function showMessage(data, color = 'gray'){
-	let msg;
+	let msg = '';
 	let isver = true;
 	switch (data){
 		case 'update_major':
 		msg = 'Вышло крупное обновление, необходимо ';
-		msg += isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.';
 		color = 'red';
 		break;
 		
 		case 'update_minor':
 		msg = 'Вышло обновление, добавлены новые функции, необходимо ';
-		msg += isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.';
 		color = 'yellowgreen';
 		break;
 		
 		case 'update_patch':
 		msg = 'Вышел патч, желательно ';
-		msg += isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.';
 		color = 'limegreen';
 		break;
 		
 		default:
-		msg = data;
 		isver = false;
 		break;
 	}
+	
+	msg += isver ? (isLocalCopy() ? 'пересохранить локальную копию.' : 'обновить страницу.') : data;
 	
 	let current = document.getElementById(isver ? 'version' : 'message');
 	if (current){
