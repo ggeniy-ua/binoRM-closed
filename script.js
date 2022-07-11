@@ -4,7 +4,8 @@ let tempNumber = '';
 const baseUrl = 'https://work.binotel.com/issues?utf8=✓&set_filter=1&per_page=200&';
 const teamsDefaultName = 'Добавь команду';
 const teamsDefaultValue = 'Добавь команду';
-let closedDate, fromDate, toDate, RMuidField, filters, panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy, dtmfmode, noReg, out, addnumberGenerate, addnumberAdd, addnumberCopy, phoneInputs, operators, btnVer, idScenario, idt, phones, outBWlist, add, edit, del, toggleBossMode, teams, button_today_team, button_yesterday_team, goTeam, godiapTeam, bossElements, useOldCf;
+let closedDate, fromDate, toDate, RMuidField, filters, panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy, dtmfmode, noReg, out, addnumberGenerate, addnumberAdd, addnumberCopy, phoneInputs, operators, btnVer, idScenario, idt, phones, outBWlist, add, edit, del, toggleBossMode, teams, button_today_team, button_yesterday_team, goTeam, godiapTeam, bossElements, useOldCf, light, dark, old, OS;
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', changeTheme);
 window.onload = function(){
 	closedDate = document.getElementById('closed_date');
 	fromDate = document.getElementById('from_date');
@@ -76,6 +77,11 @@ window.onload = function(){
 	teams.addEventListener('change', fillTeamButtons);
 	bossElements = document.querySelectorAll('.boss');
 	useOldCf = document.getElementById('useOldCf');
+	light = document.getElementById('light');
+	dark = document.getElementById('dark');
+	old = document.getElementById('old');
+	OS = document.getElementById('OS');
+	document.getElementsByName('theme').forEach(e => e.addEventListener('change', changeTheme));
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
 	remoteCheck();
@@ -101,6 +107,14 @@ function checkLocal(){
 	
 	if (localStorage.iAmBoss === 'true'){
 		switchBoss();
+	}
+	
+	if ((localStorage.theme) && (localStorage.theme !== '')){
+		document.getElementById(localStorage.theme).checked = true;
+		changeTheme();
+	} else {
+		OS.checked = true;
+		changeTheme();
 	}
 }
 function firtsRun(){
@@ -640,7 +654,7 @@ async function remoteVersionCheck(){
 	}
 }
 async function remoteMessageGet(){
-	let response = await fetch('https://raw.githubusercontent.com/ggeniy-ua/external/main/binoMessage');
+	let response = await fetch('https://raw.githubusercontent.com/ggeniy-ua/external/main/binoMessage?t=' + Date.now());
 	if (response.ok) {
 		let remote = await response.text();
 		let arr = remote.split('\n');
@@ -695,4 +709,19 @@ function makeArrFromPhones(elem){
 	let out = [...new Set(arr)];
 	elem.value = out.toString().replace(/,/g, '\n');
 	return out;
+}
+function changeTheme(){
+	if (light.checked){
+		document.documentElement.className = 'light';
+		localStorage.theme = 'light';
+	} else if (dark.checked){
+		document.documentElement.className = 'dark'
+		localStorage.theme = 'dark';
+	} else if (old.checked){
+		document.documentElement.className = 'old'
+		localStorage.theme = 'old';
+	} else {
+		document.documentElement.className = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+		localStorage.theme = 'OS';
+	}
 }

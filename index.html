@@ -11,17 +11,15 @@
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
 			const currentVersion = '2.15.2';
-			makeStyleAndScript();
-			function makeStyleAndScript(){
-				let title = document.getElementsByTagName('title')[0];
-				let script = document.createElement('script');
-				script.src = 'script.js?ver=' + currentVersion;
-				document.head.insertBefore(script, title);
-				let style = document.createElement('link');
-				style.rel = 'stylesheet';
-				style.href = 'style.css?ver=' + currentVersion;
-				document.head.insertBefore(style, title);
-			}
+			if ((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'dark')||(localStorage.theme === 'OS'))){document.documentElement.className = 'dark'};
+			let title = document.getElementsByTagName('title')[0];
+			let script = document.createElement('script');
+			script.src = 'script.js?ver=' + currentVersion;
+			document.head.insertBefore(script, title);
+			let style = document.createElement('link');
+			style.rel = 'stylesheet';
+			style.href = 'style.css?ver=' + currentVersion;
+			document.head.insertBefore(style, title);
 		</script>
 		<title>Закрытые задачи</title>
 	</head>
@@ -113,7 +111,7 @@
 							<input type = "checkbox" id = "fromuserasnum">
 							<label for = "fromuserasnum" title = "Установить fromuser как номер" role = "button">fromuser как номер</label>
 						</div>
-						<div class = "buttons-container">
+						<div class = "buttons-container-vertical">
 							<div  id = "addnumberGenerate" role = "button">Сгенерировать</div>
 							<div  id = "addnumberAdd" role = "button">Добавить</div>
 							<div  id = "addnumberCopy" role = "button">Копировать</div>
@@ -132,7 +130,7 @@
 							<input id = "idt" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id t">
 							<textarea id = "phones" class = "phones ui-element" placeholder = "телефонные номера (разделённые не пробелом)"></textarea>
 						</div>
-						<div class = "buttons-container">
+						<div class = "buttons-container-vertical">
 							<div  id = "generateBWlist" role = "button">Сгенерировать</div>
 							<div  id = "copyBWlist" role = "button">Копировать</div>
 						</div>
@@ -144,8 +142,18 @@
 		<footer>
 			<fieldset class = "l-footer">
 				<legend>Настройки</legend>
+				<div id = "themes" class = "buttons-container-horisontal">
+					<input type = "radio" name = "theme" id = "light">
+					<label for = "light" role = "button">Светлая</label>
+					<input type = "radio" name = "theme" id = "dark">
+					<label for = "dark" role = "button">Тёмная</label>
+					<input type = "radio" name = "theme" id = "old">
+					<label for = "old" role = "button">Старая</label>
+					<input type = "radio" name = "theme" id = "OS">
+					<label for = "OS" role = "button">Системная</label>
+				</div>
 				<input type = "checkbox" id = "toggleBossMode">
-				<label for = "toggleBossMode" title = "Использовать поиск по OLD КТО" role = "button">Режим начальника</label>
+				<label for = "toggleBossMode" role = "button">Режим начальника</label>
 				<div id = "reset" role = "button">Сбросить логин</div>
 			</fieldset>
 			<fieldset class = "c-footer">
