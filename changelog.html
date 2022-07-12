@@ -7,202 +7,234 @@
 			</script>
 		<!-- End Google Tag Manager -->
 		<meta charset = "utf-8">
+		<meta http-equiv = "Cache-Control" content = "no-cache, no-store, must-revalidate">
+		<meta http-equiv = "Pragma" content = "no-cache">
+		<meta http-equiv = "Expires" content = "0">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
-		<link rel = "stylesheet" href = "changelog.css">
+		<script>
+			if (((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'OS')))||(localStorage.theme === 'dark')){document.documentElement.className = 'dark'};
+			window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', themeSwither);
+			themeSwither();
+			function themeSwither(){
+				const loc = (localStorage.theme) ? localStorage.theme : '';
+				switch (loc){
+					case 'light':
+						document.documentElement.className = 'light';
+						break;
+					case 'dark':
+						document.documentElement.className = 'dark';
+						break;
+					case 'old':
+						document.documentElement.className = 'old';
+						break;
+					default:
+					document.documentElement.className = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+					break;
+				}
+			}
+			window.onmessage = function(event){
+				if (event.data === 'show') {themeSwither();}
+			};
+		</script>
+		<link rel = "stylesheet" href = "style.css?ver=3.0.0">
 		<title>Changelog</title>
 	</head>
-	<body>
+	<body class = "changelog">
 		<!-- Google Tag Manager (noscript) -->
 			<noscript><iframe src = "https://www.googletagmanager.com/ns.html?id=GTM-TDK36M3" height = "0" width = "0" style = "display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<fieldset class = "version">
-			<legend class = "number">ver 2.15.2</legend>
-			<div class = "description">Обновление стилей, незначительная оптимизация.</div>
+			<legend class = "version_number">ver 3.0.0</legend>
+			<div class = "version_description">Добавлены тёмная и светлая темы, сохранена тема по умолчанию, переключение в настройках. Незначительная оптимизация стилей.</div>
+		</fieldset>
+				<fieldset class = "version">
+			<legend class = "version_number">ver 2.15.2</legend>
+			<div class = "version_description">Обновление стилей, незначительная оптимизация.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.15.1</legend>
-			<div class = "description">Доработка отображения сообщений.</div>
+			<legend class = "version_number">ver 2.15.1</legend>
+			<div class = "version_description">Доработка отображения сообщений.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.15.0</legend>
-			<div class = "description">Исправление [bug] Теле2 fromuser как номер. Добавлена кнопка "fromuser как номер", если она активна поле fromuser игнорируется. На данный момент корректно работает только вместе с кнопкой "Транк".</div>
+			<legend class = "version_number">ver 2.15.0</legend>
+			<div class = "version_description">Исправление [bug] Теле2 fromuser как номер. Добавлена кнопка "fromuser как номер", если она активна поле fromuser игнорируется. На данный момент корректно работает только вместе с кнопкой "Транк".</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.6</legend>
-			<div class = "description">Мелкое изменение текста.</div>
+			<legend class = "version_number">ver 2.14.6</legend>
+			<div class = "version_description">Мелкое изменение текста.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.5</legend>
-			<div class = "description">Исправлено отображение. Подключён Google Tag Manager.</div>
+			<legend class = "version_number">ver 2.14.5</legend>
+			<div class = "version_description">Исправлено отображение. Подключён Google Tag Manager.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.4</legend>
-			<div class = "description">Визуальные исправления. Замена чекбоксов кнопками.</div>
+			<legend class = "version_number">ver 2.14.4</legend>
+			<div class = "version_description">Визуальные исправления. Замена чекбоксов кнопками.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.3</legend>
-			<div class = "description">Фикс.</div>
+			<legend class = "version_number">ver 2.14.3</legend>
+			<div class = "version_description">Фикс.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.2</legend>
-			<div class = "description">Оптимизация. Визуальные исправления.</div>
+			<legend class = "version_number">ver 2.14.2</legend>
+			<div class = "version_description">Оптимизация. Визуальные исправления.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.1</legend>
-			<div class = "description">Оптимизация.</div>
+			<legend class = "version_number">ver 2.14.1</legend>
+			<div class = "version_description">Оптимизация.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.14.0</legend>
-			<div class = "description">Удаление дубликатов, не только в результатах, но и в поле ввода. Добавлен "dtmfmode". Улучшение отображения changelog. Оптимизация.</div>
+			<legend class = "version_number">ver 2.14.0</legend>
+			<div class = "version_description">Удаление дубликатов, не только в результатах, но и в поле ввода. Добавлен "dtmfmode". Улучшение отображения changelog. Оптимизация.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.13.5</legend>
-			<div class = "description">Наконец-то добавлено удаление дубликатов номера, в полях добавления номера и генерации чёрных/белых списков.</div>
+			<legend class = "version_number">ver 2.13.5</legend>
+			<div class = "version_description">Наконец-то добавлено удаление дубликатов номера, в полях добавления номера и генерации чёрных/белых списков.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.13.4</legend>
-			<div class = "description">Улучшено отображение сообщения. Доработана проверка версии.</div>
+			<legend class = "version_number">ver 2.13.4</legend>
+			<div class = "version_description">Улучшено отображение сообщения. Доработана проверка версии.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.13.3</legend>
-			<div class = "description">Косметические правки.</div>
+			<legend class = "version_number">ver 2.13.3</legend>
+			<div class = "version_description">Косметические правки.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.13.2</legend>
-			<div class = "description">Добавлен контроль актуальной версии для случаев работы в закреплённой вкладке (без обновления страницы), либо с локальной копией.</div>
+			<legend class = "version_number">ver 2.13.2</legend>
+			<div class = "version_description">Добавлен контроль актуальной версии для случаев работы в закреплённой вкладке (без обновления страницы), либо с локальной копией.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.13.1</legend>
-			<div class = "description">Фикс кэширования информации о версиях.</div>
+			<legend class = "version_number">ver 2.13.1</legend>
+			<div class = "version_description">Фикс кэширования информации о версиях.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.13.0</legend>
-			<div class = "description">Добавлено пакетное добавление номера (при условии что все данные, кроме номера телефона, одинаковые). Буду рад фидбеку: нужна ли такая опция. Фидбек можно оставить по ссылкам внизу страницы.</div>
+			<legend class = "version_number">ver 2.13.0</legend>
+			<div class = "version_description">Добавлено пакетное добавление номера (при условии что все данные, кроме номера телефона, одинаковые). Буду рад фидбеку: нужна ли такая опция. Фидбек можно оставить по ссылкам внизу страницы.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.12.1</legend>
-			<div class = "description">Исправлено отображение при переполнении поля вывода результатов.</div>
+			<legend class = "version_number">ver 2.12.1</legend>
+			<div class = "version_description">Исправлено отображение при переполнении поля вывода результатов.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.12.0</legend>
-			<div class = "description">Переработана логика генерации номера. <span class = "important">Строка регистрации корректно генерируется для кастомного порта, ИЛИ прокси (случай прокси И порта не рассматривался как маловероятный).</span> Добавлен "Укртелеком УКТ прокси". Оптимизация кода. Косметические правки.</div>
+			<legend class = "version_number">ver 2.12.0</legend>
+			<div class = "version_description">Переработана логика генерации номера. <span class = "important">Строка регистрации корректно генерируется для кастомного порта, ИЛИ прокси (случай прокси И порта не рассматривался как маловероятный).</span> Добавлен "Укртелеком УКТ прокси". Оптимизация кода. Косметические правки.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.11.0</legend>
-			<div class = "description">В разделе добавления номера появился выпадающий список с популярными провайдерами (список может быть расширен через фидбеки с примерами). Усовершенствована проверка ввода.</div>
+			<legend class = "version_number">ver 2.11.0</legend>
+			<div class = "version_description">В разделе добавления номера появился выпадающий список с популярными провайдерами (список может быть расширен через фидбеки с примерами). Усовершенствована проверка ввода.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.10.2</legend>
-			<div class = "description">Оптимизация кода. Косметические правки.</div>
+			<legend class = "version_number">ver 2.10.2</legend>
+			<div class = "version_description">Оптимизация кода. Косметические правки.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.10.1</legend>
-			<div class = "description">Адаптация к смене фильтра в РМ (КТО и КТО OLD).</div>
+			<legend class = "version_number">ver 2.10.1</legend>
+			<div class = "version_description">Адаптация к смене фильтра в РМ (КТО и КТО OLD).</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.10.0</legend>
-			<div class = "description"><span class = "important">Добавлен режим начальника.</span> Режим позволяет сохранить (с возможностью последующего редактирования и удаления) одну или несколько "команд", и просматривать закрытые задачи сразу по группе сотрудников. Кнопка переключения режима перенесена вниз. Добавлено вынесение имени команды на кнопки. Мелкие правки футера.</div>
+			<legend class = "version_number">ver 2.10.0</legend>
+			<div class = "version_description"><span class = "important">Добавлен режим начальника.</span> Режим позволяет сохранить (с возможностью последующего редактирования и удаления) одну или несколько "команд", и просматривать закрытые задачи сразу по группе сотрудников. Кнопка переключения режима перенесена вниз. Добавлено вынесение имени команды на кнопки. Мелкие правки футера.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.9.3b</legend>
-			<div class = "description">Фикс.</div>
+			<legend class = "version_number">ver 2.9.3b</legend>
+			<div class = "version_description">Фикс.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.9.2b</legend>
-			<div class = "description">Бета-версия "режима начальника". Буду признателен за отзывы (работает ли и нужно ли). Оптимизация кода.</div>
+			<legend class = "version_number">ver 2.9.2b</legend>
+			<div class = "version_description">Бета-версия "режима начальника". Буду признателен за отзывы (работает ли и нужно ли). Оптимизация кода.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.9.1a</legend>
-			<div class = "description">Добавлен Telegram-канал для обратной связи.</div>
+			<legend class = "version_number">ver 2.9.1a</legend>
+			<div class = "version_description">Добавлен Telegram-канал для обратной связи.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.9.0a</legend>
-			<div class = "description">Добавлена альфа-версия "режима начальника". Буду признателен за отзывы (работает ли и нужно ли). Добавлены поля для заметок.</div>
+			<legend class = "version_number">ver 2.9.0a</legend>
+			<div class = "version_description">Добавлена альфа-версия "режима начальника". Буду признателен за отзывы (работает ли и нужно ли). Добавлены поля для заметок.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.8.3</legend>
-			<div class = "description">Оптимизация кода.</div>
+			<legend class = "version_number">ver 2.8.3</legend>
+			<div class = "version_description">Оптимизация кода.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.8.2</legend>
-			<div class = "description">Унификация отображения результатов.</div>
+			<legend class = "version_number">ver 2.8.2</legend>
+			<div class = "version_description">Унификация отображения результатов.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.8.1</legend>
-			<div class = "description">Незначительно скорректировано отображение.</div>
+			<legend class = "version_number">ver 2.8.1</legend>
+			<div class = "version_description">Незначительно скорректировано отображение.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.8.0</legend>
-			<div class = "description">Добавлена коррекция ввода при построении чёрных (белых) списков, изменена логика поиска телефонных номеров (<span class = "important">теперь список номеров можно практически не подготавливать (но лучше, всё-таки, просмотреть преобразованный), номера могут быть разделены любым символом, кроме использующихся в записи номера</span>). Переработана проверка ввода там где она есть.</div>
+			<legend class = "version_number">ver 2.8.0</legend>
+			<div class = "version_description">Добавлена коррекция ввода при построении чёрных (белых) списков, изменена логика поиска телефонных номеров (<span class = "important">теперь список номеров можно практически не подготавливать (но лучше, всё-таки, просмотреть преобразованный), номера могут быть разделены любым символом, кроме использующихся в записи номера</span>). Переработана проверка ввода там где она есть.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.6</legend>
-			<div class = "description">Исправлено вычисление понедельника в воскресенье.</div>
+			<legend class = "version_number">ver 2.7.6</legend>
+			<div class = "version_description">Исправлено вычисление понедельника в воскресенье.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.5</legend>
-			<div class = "description">Улучшена генерация чёрных (белых) списков.</div>
+			<legend class = "version_number">ver 2.7.5</legend>
+			<div class = "version_description">Улучшена генерация чёрных (белых) списков.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.4</legend>
-			<div class = "description">Добавлено отображение истории изменений при изменении мажорной/минорной версии. Добавлена ссылка на гугл форму для багрепортов.</div>
+			<legend class = "version_number">ver 2.7.4</legend>
+			<div class = "version_description">Добавлено отображение истории изменений при изменении мажорной/минорной версии. Добавлена ссылка на гугл форму для багрепортов.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.3</legend>
-			<div class = "description">Улучшена генерация чёрных (белых) списков.</div>
+			<legend class = "version_number">ver 2.7.3</legend>
+			<div class = "version_description">Улучшена генерация чёрных (белых) списков.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.2</legend>
-			<div class = "description">Исправлена генерация чёрных (белых) списков.</div>
+			<legend class = "version_number">ver 2.7.2</legend>
+			<div class = "version_description">Исправлена генерация чёрных (белых) списков.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.1</legend>
-			<div class = "description">Исправлено отображение истории версий.</div>
+			<legend class = "version_number">ver 2.7.1</legend>
+			<div class = "version_description">Исправлено отображение истории версий.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.7.0</legend>
-			<div class = "description">Добавлена генерация чёрных (белых) списков.</div>
+			<legend class = "version_number">ver 2.7.0</legend>
+			<div class = "version_description">Добавлена генерация чёрных (белых) списков.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.6.0</legend>
-			<div class = "description">Добавлены ссылки на закрытые по фильтрам.</div>
+			<legend class = "version_number">ver 2.6.0</legend>
+			<div class = "version_description">Добавлены ссылки на закрытые по фильтрам.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.5.1</legend>
-			<div class = "description">Хотфикс.</div>
+			<legend class = "version_number">ver 2.5.1</legend>
+			<div class = "version_description">Хотфикс.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.5.0</legend>
-			<div class = "description">Добавлена информация о версиях.</div>
+			<legend class = "version_number">ver 2.5.0</legend>
+			<div class = "version_description">Добавлена информация о версиях.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.4.0</legend>
-			<div class = "description">Улучшено отображение, при заполнении парных полей (defaultuser/fromuser и host/fromdomain).</div>
+			<legend class = "version_number">ver 2.4.0</legend>
+			<div class = "version_description">Улучшено отображение, при заполнении парных полей (defaultuser/fromuser и host/fromdomain).</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.3.0</legend>
-			<div class = "description">Улучшена верстка.</div>
+			<legend class = "version_number">ver 2.3.0</legend>
+			<div class = "version_description">Улучшена верстка.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.2.0</legend>
-			<div class = "description">Добавлена подсветка полей добавления номера, при вводе кириллицы и спецсимволов(/:@).</div>
+			<legend class = "version_number">ver 2.2.0</legend>
+			<div class = "version_description">Добавлена подсветка полей добавления номера, при вводе кириллицы и спецсимволов(/:@).</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.1.1</legend>
-			<div class = "description">Фикс кэширования браузером старой версии скрипта и стилей.</div>
+			<legend class = "version_number">ver 2.1.1</legend>
+			<div class = "version_description">Фикс кэширования браузером старой версии скрипта и стилей.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.1.0</legend>
-			<div class = "description">Добавлен шаблон добавления номера. Переработаны кнопки. Косметические правки.</div>
+			<legend class = "version_number">ver 2.1.0</legend>
+			<div class = "version_description">Добавлен шаблон добавления номера. Переработаны кнопки. Косметические правки.</div>
 		</fieldset>
 		<fieldset class = "version">
-			<legend class = "number">ver 2.0.1</legend>
-			<div class = "description">Хотфикс.</div>
+			<legend class = "version_number">ver 2.0.1</legend>
+			<div class = "version_description">Хотфикс.</div>
 		</fieldset>
 		
 		<fieldset class = "version">
-			<legend class = "number">ver 2.0.0</legend>
-			<div class = "description">Добавлен просмотр закрытых в диапазоне дат.</div>
+			<legend class = "version_number">ver 2.0.0</legend>
+			<div class = "version_description">Добавлен просмотр закрытых в диапазоне дат.</div>
 		</fieldset>
 	</body>
 </html>

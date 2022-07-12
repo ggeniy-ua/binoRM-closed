@@ -8,24 +8,19 @@
 		<!-- End Google Tag Manager -->
 		<meta charset = "utf-8">
 		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+		<meta http-equiv = "Cache-Control" content = "no-cache, no-store, must-revalidate">
+		<meta http-equiv = "Pragma" content = "no-cache">
+		<meta http-equiv = "Expires" content = "0">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			const currentVersion = '2.15.2';
-			makeStyleAndScript();
-			function makeStyleAndScript(){
-				let title = document.getElementsByTagName('title')[0];
-				let script = document.createElement('script');
-				script.src = 'script.js?ver=' + currentVersion;
-				document.head.insertBefore(script, title);
-				let style = document.createElement('link');
-				style.rel = 'stylesheet';
-				style.href = 'style.css?ver=' + currentVersion;
-				document.head.insertBefore(style, title);
-			}
+			const currentVersion = '3.0.0';
+			if (((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'OS')))||(localStorage.theme === 'dark')){document.documentElement.className = 'dark'};
 		</script>
+		<script id = "indexScript" src = "script.js?ver=3.0.0"></script>
+		<link rel = "stylesheet" href = "style.css?ver=3.0.0">
 		<title>Закрытые задачи</title>
 	</head>
-	<body>
+	<body class = "index">
 		<!-- Google Tag Manager (noscript) -->
 			<noscript><iframe src = "https://www.googletagmanager.com/ns.html?id=GTM-TDK36M3" height = "0" width = "0" style = "display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
@@ -33,7 +28,7 @@
 			<header>
 				<h1>Закрытые задачи</h1>
 			</header>
-			<fieldset>
+			<fieldset class = "index">
 			<legend>Закрытые задачи</legend>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
@@ -78,7 +73,7 @@
 					<div id = "godiapTeam" role = "button" class = "boss hidden">(team)</div>
 				</div>
 			</fieldset>
-			<fieldset>
+			<fieldset class = "index">
 			<legend>Добавление номера</legend>
 				<div  class = "form-container">
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
@@ -113,7 +108,7 @@
 							<input type = "checkbox" id = "fromuserasnum">
 							<label for = "fromuserasnum" title = "Установить fromuser как номер" role = "button">fromuser как номер</label>
 						</div>
-						<div class = "buttons-container">
+						<div class = "buttons-container-vertical">
 							<div  id = "addnumberGenerate" role = "button">Сгенерировать</div>
 							<div  id = "addnumberAdd" role = "button">Добавить</div>
 							<div  id = "addnumberCopy" role = "button">Копировать</div>
@@ -123,7 +118,7 @@
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
 				</div>
 			</fieldset>
-			<fieldset>
+			<fieldset class = "index">
 			<legend>Чёрно-белые списки</legend>
 				<div  class = "form-container">
 					<div class = "column-container">
@@ -132,7 +127,7 @@
 							<input id = "idt" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id t">
 							<textarea id = "phones" class = "phones ui-element" placeholder = "телефонные номера (разделённые не пробелом)"></textarea>
 						</div>
-						<div class = "buttons-container">
+						<div class = "buttons-container-vertical">
 							<div  id = "generateBWlist" role = "button">Сгенерировать</div>
 							<div  id = "copyBWlist" role = "button">Копировать</div>
 						</div>
@@ -144,8 +139,18 @@
 		<footer>
 			<fieldset class = "l-footer">
 				<legend>Настройки</legend>
+				<div id = "themes" class = "buttons-container-horisontal">
+					<input type = "radio" name = "theme" id = "light">
+					<label for = "light" role = "button">Светлая</label>
+					<input type = "radio" name = "theme" id = "dark">
+					<label for = "dark" role = "button">Тёмная</label>
+					<input type = "radio" name = "theme" id = "old">
+					<label for = "old" role = "button">Старая</label>
+					<input type = "radio" name = "theme" id = "OS">
+					<label for = "OS" role = "button">Системная</label>
+				</div>
 				<input type = "checkbox" id = "toggleBossMode">
-				<label for = "toggleBossMode" title = "Использовать поиск по OLD КТО" role = "button">Режим начальника</label>
+				<label for = "toggleBossMode" role = "button">Режим начальника</label>
 				<div id = "reset" role = "button">Сбросить логин</div>
 			</fieldset>
 			<fieldset class = "c-footer">
