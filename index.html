@@ -8,22 +8,19 @@
 		<!-- End Google Tag Manager -->
 		<meta charset = "utf-8">
 		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+		<meta http-equiv = "Cache-Control" content = "no-cache, no-store, must-revalidate">
+		<meta http-equiv = "Pragma" content = "no-cache">
+		<meta http-equiv = "Expires" content = "0">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
 			const currentVersion = '2.15.2';
-			if ((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'dark')||(localStorage.theme === 'OS'))){document.documentElement.className = 'dark'};
-			let title = document.getElementsByTagName('title')[0];
-			let script = document.createElement('script');
-			script.src = 'script.js?ver=' + currentVersion;
-			document.head.insertBefore(script, title);
-			let style = document.createElement('link');
-			style.rel = 'stylesheet';
-			style.href = 'style.css?ver=' + currentVersion;
-			document.head.insertBefore(style, title);
+			if (((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'OS')))||(localStorage.theme === 'dark')){document.documentElement.className = 'dark'};
 		</script>
+		<script id = "indexScript" src = "script.js?ver=2.15.2"></script>
+		<link rel = "stylesheet" href = "style.css?ver=2.15.2">
 		<title>Закрытые задачи</title>
 	</head>
-	<body>
+	<body class = "index">
 		<!-- Google Tag Manager (noscript) -->
 			<noscript><iframe src = "https://www.googletagmanager.com/ns.html?id=GTM-TDK36M3" height = "0" width = "0" style = "display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
@@ -31,7 +28,7 @@
 			<header>
 				<h1>Закрытые задачи</h1>
 			</header>
-			<fieldset>
+			<fieldset class = "index">
 			<legend>Закрытые задачи</legend>
 				<div  class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
@@ -76,7 +73,7 @@
 					<div id = "godiapTeam" role = "button" class = "boss hidden">(team)</div>
 				</div>
 			</fieldset>
-			<fieldset>
+			<fieldset class = "index">
 			<legend>Добавление номера</legend>
 				<div  class = "form-container">
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
@@ -121,7 +118,7 @@
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
 				</div>
 			</fieldset>
-			<fieldset>
+			<fieldset class = "index">
 			<legend>Чёрно-белые списки</legend>
 				<div  class = "form-container">
 					<div class = "column-container">

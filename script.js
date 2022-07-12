@@ -410,6 +410,7 @@ function copy(elem){
 function showModal(){
 	remoteCheck();
 	if (modal){
+		modal.getElementsByTagName('iframe')[0].contentWindow.postMessage('show', '*');
 		modal.classList.toggle('hidden');
 		window.addEventListener('click', outerCloseModal);
 	} else {
