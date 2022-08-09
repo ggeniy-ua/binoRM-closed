@@ -13,9 +13,9 @@
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
 			if (((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'OS')))||(localStorage.theme === 'dark')){document.documentElement.className = 'dark'};
-			window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', themeSwither);
-			themeSwither();
-			function themeSwither(){
+			window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', themeSwitcher);
+			themeSwitcher();
+			function themeSwitcher(){
 				const loc = (localStorage.theme) ? localStorage.theme : '';
 				switch (loc){
 					case 'light':
@@ -33,7 +33,7 @@
 				}
 			}
 			window.onmessage = function(event){
-				if (event.data === 'show') {themeSwither();}
+				if (event.data === 'show') {themeSwitcher();}
 			};
 		</script>
 		<link rel = "stylesheet" href = "style.css?ver=3.0.0">
@@ -44,10 +44,14 @@
 			<noscript><iframe src = "https://www.googletagmanager.com/ns.html?id=GTM-TDK36M3" height = "0" width = "0" style = "display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<fieldset class = "version">
+			<legend class = "version_number">ver 3.1.0</legend>
+			<div class = "version_description">Допустимый логин увеличен до 5 символов.</div>
+		</fieldset>
+		<fieldset class = "version">
 			<legend class = "version_number">ver 3.0.0</legend>
 			<div class = "version_description">Добавлены тёмная и светлая темы, сохранена тема по умолчанию, переключение в настройках. Незначительная оптимизация стилей.</div>
 		</fieldset>
-				<fieldset class = "version">
+		<fieldset class = "version">
 			<legend class = "version_number">ver 2.15.2</legend>
 			<div class = "version_description">Обновление стилей, незначительная оптимизация.</div>
 		</fieldset>

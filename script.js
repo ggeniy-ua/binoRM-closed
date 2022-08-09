@@ -489,7 +489,7 @@ function inputReplace(str, type){
 		return str;
 		
 		case 'rm_uid':
-		str = str.replace(/[^a-z0-9]/gi, '').substring(0, 4).toUpperCase();
+		str = str.replace(/[^a-z0-9]/gi, '').substring(0, 5).toUpperCase();
 		return str;
 		
 		case 'numbers':
