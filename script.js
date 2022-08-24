@@ -13,6 +13,7 @@ window.onload = function(){
 	RMuidField = document.getElementById('RMuid');
 	RMuidField.addEventListener('input', change);
 	document.getElementById('button_today').addEventListener('click', function(){todayClick('solo');});
+	document.getElementById('button_touch_today').addEventListener('click', todayTouchClick);
 	document.getElementById('button_yesterday').addEventListener('click', function(){yesterdayClick('solo');});
 	document.getElementById('button_alltime').addEventListener('click', alltimeClick);
 	document.getElementById('go').addEventListener('click', function(){goClick('solo');});
@@ -156,6 +157,10 @@ function todayClick(type){
 	}
 	showMe(getRMuid(type), ftoday());
 }
+function todayTouchClick(){
+	remoteCheck();
+	showMeTouch(getRMuid('solo'));
+}
 function ftoday(){
 	return today.toISOString().substr(0,10);
 }
@@ -205,6 +210,11 @@ function monday(){
 function showMe(uid, date){
 	let cf = newOrOldFilter();
 	let url = `${baseUrl}c[]=${cf}&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=${cf}&f[]=closed_on&f[]=&op[${cf}]==&op[closed_on]==&op[status_id]=c${uidsUrlConstructor(uid)}&v[closed_on][]=${date}`;
+	window.open(url, '_blank');
+}
+function showMeTouch(uid){
+	let cf = newOrOldFilter();
+	let url = `${baseUrl}c[]=${cf}&c[]=subject&c[]=cf_79&c[]=created_on&c[]=edit_on&f[]=status_id&f[]=${cf}&f[]=edit_on&f[]=&op[${cf}]==&op[edit_on]==&op[status_id]=c${uidsUrlConstructor(uid)}&v[edit_on][]=${ftoday()}`;
 	window.open(url, '_blank');
 }
 function showMeDiap(uid, from, to){
