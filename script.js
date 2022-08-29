@@ -156,7 +156,6 @@ function todayClick(type){
 	}
 	showMe(getRMuid(type), ftoday());
 }
-}
 function ftoday(){
 	return today.toISOString().substr(0,10);
 }
