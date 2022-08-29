@@ -207,7 +207,6 @@ function showMe(uid, date){
 	let url = `${baseUrl}c[]=${cf}&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=${cf}&f[]=closed_on&f[]=&op[${cf}]==&op[closed_on]==&op[status_id]=c${uidsUrlConstructor(uid)}&v[closed_on][]=${date}`;
 	window.open(url, '_blank');
 }
-}
 function showMeDiap(uid, from, to){
 	let cf = newOrOldFilter();
 	let url = `${baseUrl}c[]=${cf}&c[]=subject&c[]=cf_79&c[]=created_on&c[]=closed_on&f[]=status_id&f[]=${cf}&f[]=closed_on&f[]=&op[${cf}]==&op[closed_on]=><&op[status_id]=c${uidsUrlConstructor(uid)}&v[closed_on][]=${from}&v[closed_on][]=${to}`;
