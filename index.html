@@ -13,11 +13,11 @@
 		<meta http-equiv = "Expires" content = "0">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			const currentVersion = '3.2.0';
+			const currentVersion = '3.2.1';
 			if (((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'OS')))||(localStorage.theme === 'dark')){document.documentElement.className = 'dark'};
 		</script>
-		<script id = "indexScript" src = "script.js?ver=3.0.0"></script>
-		<link rel = "stylesheet" href = "style.css?ver=3.0.0">
+		<script id = "indexScript" src = "script.js?ver=3.2.1"></script>
+		<link rel = "stylesheet" href = "style.css?ver=3.2.1">
 		<title>Закрытые задачи</title>
 	</head>
 	<body class = "index">
@@ -28,7 +28,7 @@
 			<header>
 				<h1>Закрытые задачи</h1>
 			</header>
-			<fieldset id = "closed" class = "index">
+			<fieldset class = "index">
 			<legend>Закрытые задачи</legend>
 				<div class = "formrow">
 					<input id = "RMuid" type = "text" size = "10" autocomplete = "on" class = "ui-element">
@@ -39,7 +39,6 @@
 					<div id = "button_today" role = "button">Сегодня</div>
 					<div id = "button_yesterday" role = "button">Вчера</div>
 					<div id = "button_alltime" role = "button">От начала времён</div>
-					<div id = "button_touch_today" role = "button">Касания сегодня</div>
 				</div>
 				<div class = "formrow boss hidden">
 					<div id = "add" role = "button" title = "Добавить">➕</div><div id = "edit" role = "button" title = "Редактировать">✎</div><div id = "del" role = "button" title = "Удалить">🗑</div>
