@@ -4,7 +4,7 @@ let tempNumber = '';
 const baseUrl = 'https://work.binotel.com/issues?utf8=✓&set_filter=1&per_page=200&';
 const teamsDefaultName = 'Добавь команду';
 const teamsDefaultValue = 'Добавь команду';
-let closedDate, fromDate, toDate, RMuidField, filters, panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy, dtmfmode, noReg, out, addnumberGenerate, addnumberAdd, addnumberCopy, phoneInputs, operators, btnVer, idScenario, idt, phones, outBWlist, add, edit, del, toggleBossMode, teams, button_today_team, button_yesterday_team, goTeam, godiapTeam, bossElements, useOldCf, light, dark, old, OS;
+let closedDate, fromDate, toDate, RMuidField, filters, panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy, dtmfmode, noReg, out, addnumberGenerate, addnumberAdd, addnumberCopy, phoneInputs, operators, btnVer, idScenario, idt, phones, outBWlist, add, edit, del, toggleBossMode, teams, button_today_team, button_yesterday_team, goTeam, godiapTeam, bossElements, useOldCf, light, dark, old, OS, formAddnumber, formBWlist;
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', changeTheme);
 window.onload = function(){
 	closedDate = document.getElementById('closed_date');
@@ -38,6 +38,7 @@ window.onload = function(){
 	addnumberGenerate = document.getElementById('addnumberGenerate');
 	addnumberAdd = document.getElementById('addnumberAdd');
 	addnumberCopy = document.getElementById('addnumberCopy');
+	document.getElementById('addnumberReset').addEventListener('click', function(){resetForm('addnumber');});
 	phoneInputs = [panelid, number, defaultuser, fromuser, secret, host, fromdomain, port, outboundproxy, dtmfmode];
 	phoneInputs.forEach(function(el){el.addEventListener('input', input);});	
 	addnumberGenerate.addEventListener('click', function(){generateNumberClick('new');});
@@ -54,7 +55,8 @@ window.onload = function(){
 	idScenario.addEventListener('input', replacingBW);
 	idt.addEventListener('input', replacingBW);
 	document.getElementById('generateBWlist').addEventListener('click', generateBW);
-	document.getElementById('copyBWlist').addEventListener('click', function(){copy(outBWlist);});		
+	document.getElementById('copyBWlist').addEventListener('click', function(){copy(outBWlist);});
+	document.getElementById('resetBWlist').addEventListener('click', function(){resetForm('BWlist');});	
 	window.addEventListener('resize', cons);
 	cons();
 	add = document.getElementById('add');
@@ -82,6 +84,8 @@ window.onload = function(){
 	old = document.getElementById('old');
 	OS = document.getElementById('OS');
 	document.getElementsByName('theme').forEach(e => e.addEventListener('change', changeTheme));
+	formAddnumber = document.getElementById('form-number');
+	formBWlist = document.getElementById('form-blacklist');
 	checkLocal();
 	RMuidField.placeholder = getLocalRMuid();
 	remoteCheck();
@@ -724,5 +728,14 @@ function changeTheme(){
 	} else {
 		document.documentElement.className = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
 		localStorage.theme = 'OS';
+	}
+}
+function resetForm(tform){
+	if (tform === 'addnumber'){
+		formAddnumber.reset();
+		out.innerText = '';
+	} else if (tform === 'BWlist'){
+		formBWlist.reset();
+		outBWlist.innerText = '';
 	}
 }
