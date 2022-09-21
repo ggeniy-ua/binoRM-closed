@@ -13,11 +13,11 @@
 		<meta http-equiv = "Expires" content = "0">
 		<link rel = "shortcut icon" type = "image/x-icon" href = "favicon.ico">
 		<script>
-			const currentVersion = '3.2.2';
+			const currentVersion = '3.3.1';
 			if (((window.matchMedia("(prefers-color-scheme: dark)").matches)&&(!localStorage.theme||(localStorage.theme === '')||(localStorage.theme === 'OS')))||(localStorage.theme === 'dark')){document.documentElement.className = 'dark'};
 		</script>
-		<script id = "indexScript" src = "script.js?ver=3.2.2"></script>
-		<link rel = "stylesheet" href = "style.css?ver=3.2.1">
+		<script id = "indexScript" src = "script.js?ver=3.3.1"></script>
+		<link rel = "stylesheet" href = "style.css?ver=3.3.1">
 		<title>Закрытые задачи</title>
 	</head>
 	<body class = "index">
@@ -75,7 +75,7 @@
 			</fieldset>
 			<fieldset class = "index">
 			<legend>Добавление номера</legend>
-				<div class = "form-container">
+				<form id = "form-number" class = "form-container">
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
 					<div class = "column-container">
 						<div class = "inputs-container">
@@ -114,15 +114,16 @@
 							<div id = "addnumberGenerate" role = "button">Сгенерировать</div>
 							<div id = "addnumberAdd" role = "button">Добавить</div>
 							<div id = "addnumberCopy" role = "button">Копировать</div>
+							<div id = "addnumberReset" role = "button">Очистить</div>
 						</div>
 					</div>
 					<div id = "out" class = "textarea"></div>
 					<textarea class = "ears ui-element" placeholder = "Для заметок"></textarea>
-				</div>
+				</form>
 			</fieldset>
 			<fieldset class = "index">
 			<legend>Чёрно-белые списки</legend>
-				<div class = "form-container">
+				<form  id = "form-blacklist" class = "form-container">
 					<div class = "column-container">
 						<div class = "inputs-container">
 							<input id = "idScenario" class = "ui-element" type = "text" size = "10" autocomplete = "off" placeholder = "id сценария">
@@ -132,10 +133,11 @@
 						<div class = "buttons-container-vertical">
 							<div id = "generateBWlist" role = "button">Сгенерировать</div>
 							<div id = "copyBWlist" role = "button">Копировать</div>
+							<div id = "resetBWlist" role = "button">Очистить</div>
 						</div>
 					</div>
 					<div id = "outBWlist" class = "textarea"></div>
-				</div>
+				</form>
 			</fieldset>
 		</div>
 		<footer>
